@@ -4,8 +4,8 @@ Version=1.0
 Type=Application
 Terminal=false
 Name=Tolppa-apuri
-Exec=/usr/bin/invoker --type=d -s /opt/Tolppa-apuri/bin/Tolppa-apuri
-Icon=/usr/share/icons/hicolor/80x80/apps/Tolppa-apuri80.png
+Exec=/usr/bin/invoker --single-instance --type=q /opt/Tolppaapuri/bin/Tolppaapuri
+Icon=/usr/share/icons/hicolor/80x80/apps/Tolppaapuri80.png
 X-Window-Icon=
 X-HildonDesk-ShowInToolbar=true
 X-Osso-Type=application/x-executable
