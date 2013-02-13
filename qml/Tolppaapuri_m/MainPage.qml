@@ -8,7 +8,7 @@ Page {
     property string startTime: startTimeString()
     property string timeToStart: timeToStartString()
     property int minutesToStartTime: 0
-    property int degrees: (minutesToStartTime / 4).toFixed()
+    property int degrees: 360 - parseInt(minutesToStartTime / 4)
 
     function startTimeString() {
         if (minutesSlider.value < 10) {
@@ -28,14 +28,15 @@ Page {
         }
         var toStart = startDate - timeNow
 //        console.log("tostart: " + toStart)
-        page.minutesToStartTime = (toStart / 1000 / 60).toFixed()
-        var hoursToStart = (toStart / 1000 / 60 / 60).toFixed()
-        var minutesToStart = ((toStart / 1000 / 60) - (hoursToStart * 60)).toFixed()
+        page.minutesToStartTime = parseInt(toStart / 1000 / 60)
+        var hoursToStart = parseInt(toStart / 1000 / 60 / 60)
+        var minutesToStart = parseInt((minutesToStartTime) - (hoursToStart * 60))
         if (minutesToStart < 0) {
             hoursToStart = hoursToStart - 1
             minutesToStart = 60 + minutesToStart
         }
         console.log("minutes to start: " + page.minutesToStartTime)
+        console.log("degrees: " + page.degrees)
         if (minutesToStart<10) {
             return hoursToStart + ":0" + minutesToStart;
         }
@@ -113,6 +114,21 @@ Page {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: minutesSlider.bottom
         text: qsTr("Time to start: " + timeToStart)
+    }
+
+    Image {
+        id: clock1frame
+        anchors.top: hoursToStartLabel.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        source: "graphics/clock1_frame.png"
+        Image {
+            id: clock1knob
+            x: (parent.width - width) / 2 - 8
+            y: (parent.height - height) / 2
+            source: "graphics/clock1_knob.png"
+            rotation: page.degrees
+        }
+
     }
 
 }
