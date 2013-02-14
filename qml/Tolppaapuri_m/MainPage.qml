@@ -9,6 +9,7 @@ Page {
     property string timeToStart: timeToStartString()
     property int minutesToStartTime: 0
     property int degrees: 360 - parseInt(minutesToStartTime / 4)
+    property int commonMargin: 8
 
     function startTimeString() {
         if (minutesSlider.value < 10) {
@@ -27,7 +28,6 @@ Page {
             startDate.setDate(startDate.getDate() + 1)
         }
         var toStart = startDate - timeNow
-//        console.log("tostart: " + toStart)
         page.minutesToStartTime = parseInt(toStart / 1000 / 60)
         var hoursToStart = parseInt(toStart / 1000 / 60 / 60)
         var minutesToStart = parseInt((minutesToStartTime) - (hoursToStart * 60))
@@ -35,8 +35,8 @@ Page {
             hoursToStart = hoursToStart - 1
             minutesToStart = 60 + minutesToStart
         }
-        console.log("minutes to start: " + page.minutesToStartTime)
-        console.log("degrees: " + page.degrees)
+        //console.log("minutes to start: " + page.minutesToStartTime)
+        //console.log("degrees: " + page.degrees)
         if (minutesToStart<10) {
             return hoursToStart + ":0" + minutesToStart;
         }
@@ -68,65 +68,129 @@ Page {
         }
     }
 
-    Label {
-        id: currentTimeLabel
-        anchors.horizontalCenter: parent.horizontalCenter
+    Item {
+        id: labelsContainer
         anchors.top: parent.top
-        text: qsTr("Current time: " + currentTime)
+        anchors.topMargin: commonMargin
+        width: parent.width
+        height: 130
+
+        Label {
+            id: currentTimeHeaderLabel
+            anchors.top: parent.top
+            anchors.topMargin: commonMargin
+            anchors.left: parent.left
+            anchors.leftMargin: commonMargin
+            width: parent.width / 2
+            text: qsTr("Current time:")
+            horizontalAlignment: Text.AlignHCenter
+        }
+
+        Label {
+            id: currentTimeLabel
+            anchors.top: currentTimeHeaderLabel.bottom
+            anchors.topMargin: commonMargin
+            anchors.left: parent.left
+            anchors.leftMargin: commonMargin
+            width: parent.width / 2
+            text: currentTime
+            horizontalAlignment: Text.AlignHCenter
+            font.pixelSize: 30
+        }
+
+        Label {
+            id: startTimeHeaderLabel
+            anchors.top: parent.top
+            anchors.topMargin: commonMargin
+            anchors.right: parent.right
+            anchors.rightMargin: commonMargin
+            width: parent.width / 2
+            text: qsTr("Start time:")
+            horizontalAlignment: Text.AlignHCenter
+        }
+
+        Label {
+            id: startTimeLabel
+            anchors.top: startTimeHeaderLabel.bottom
+            anchors.topMargin: commonMargin
+            anchors.right: parent.right
+            anchors.rightMargin: commonMargin
+            width: parent.width / 2
+            text: startTime
+            font.pixelSize: 30
+            horizontalAlignment: Text.AlignHCenter
+        }
+
+        Label {
+            id: noteLabel
+            anchors.top: startTimeLabel.bottom
+            anchors.topMargin: commonMargin
+            anchors.left: parent.left
+            anchors.leftMargin: commonMargin
+            anchors.right: parent.right
+            anchors.rightMargin: commonMargin
+            text: qsTr("")
+            horizontalAlignment: Text.AlignHCenter
+        }
     }
 
-    Label {
-        id: startTimeLabel
+    Item {
+        id: timeToStartContainer
+        anchors.top: labelsContainer.bottom
+        anchors.topMargin: commonMargin
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: currentTimeLabel.bottom
-        text: qsTr("Start time: " + startTime)
-    }
+        height: 150
 
-    Label {
-        id: noteLabel
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: startTimeLabel.bottom
-        text: qsTr("")
-    }
+        Slider {
+            id: hoursSlider
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            minimumValue: 0
+            maximumValue: 23
+            stepSize: 1
+            onValueChanged: timeToStartString()
+        }
 
-    Slider {
-        id: hoursSlider
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: noteLabel.bottom
-        minimumValue: 0
-        maximumValue: 23
-        stepSize: 1
-        onValueChanged: timeToStartString()
-    }
+        Slider {
+            id: minutesSlider
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: hoursSlider.bottom
+            minimumValue: 0
+            maximumValue: 59
+            stepSize: 1
+            onValueChanged: timeToStartString()
+        }
 
-    Slider {
-        id: minutesSlider
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: hoursSlider.bottom
-        minimumValue: 0
-        maximumValue: 59
-        stepSize: 1
-        onValueChanged: timeToStartString()
-    }
+        Label {
+            id: hoursToStartHeaderLabel
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: minutesSlider.bottom
+            text: qsTr("Time to start:")
+        }
+        Label {
+            id: hoursToStartLabel
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: hoursToStartHeaderLabel.bottom
+            text: timeToStart
+            font.pixelSize: 30
+        }
 
-    Label {
-        id: hoursToStartLabel
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: minutesSlider.bottom
-        text: qsTr("Time to start: " + timeToStart)
     }
 
     Image {
         id: clock1frame
-        anchors.top: hoursToStartLabel.bottom
+        anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         source: "graphics/clock1_frame.png"
+        smooth: true
         Image {
             id: clock1knob
             x: (parent.width - width) / 2 - 8
             y: (parent.height - height) / 2
             source: "graphics/clock1_knob.png"
             rotation: page.degrees
+            smooth: true
+            Behavior on rotation { PropertyAnimation { duration: 400 } }
         }
 
     }
