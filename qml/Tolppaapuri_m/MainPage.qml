@@ -3,13 +3,15 @@ import com.nokia.meego 1.0
 
 Page {
     id: page
-    tools: commonTools
     property string currentTime: ""
     property string startTime: startTimeString()
     property string timeToStart: timeToStartString()
     property int minutesToStartTime: 0
     property int degrees: 360 - parseInt(minutesToStartTime / 4)
     property int commonMargin: 8
+    property int clockType: 1
+
+    onCurrentTimeChanged: timeToStartString()
 
     function startTimeString() {
         if (minutesSlider.value < 10) {
@@ -72,7 +74,8 @@ Page {
         id: labelsContainer
         anchors.top: parent.top
         anchors.topMargin: commonMargin
-        width: parent.width
+        width: appWindow.landscape ? parent.width / 2 : parent.width
+        x: appWindow.landscape ? 0 : (parent.width - width) / 2
         height: 130
 
         Label {
@@ -129,7 +132,7 @@ Page {
             anchors.leftMargin: commonMargin
             anchors.right: parent.right
             anchors.rightMargin: commonMargin
-            text: qsTr("")
+            text: qsTr("Nootti")
             horizontalAlignment: Text.AlignHCenter
         }
     }
@@ -137,8 +140,8 @@ Page {
     Item {
         id: timeToStartContainer
         anchors.top: labelsContainer.bottom
-        anchors.topMargin: commonMargin
-        anchors.horizontalCenter: parent.horizontalCenter
+        width: appWindow.landscape ? parent.width / 2 : parent.width
+        x: appWindow.landscape ? 0 : (parent.width - width) / 2
         height: 150
 
         Slider {
@@ -148,6 +151,7 @@ Page {
             minimumValue: 0
             maximumValue: 23
             stepSize: 1
+            width: parent.width
             onValueChanged: timeToStartString()
         }
 
@@ -158,6 +162,7 @@ Page {
             minimumValue: 0
             maximumValue: 59
             stepSize: 1
+            width: parent.width
             onValueChanged: timeToStartString()
         }
 
@@ -171,6 +176,7 @@ Page {
             id: hoursToStartLabel
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: hoursToStartHeaderLabel.bottom
+            anchors.topMargin: commonMargin
             text: timeToStart
             font.pixelSize: 30
         }
@@ -180,19 +186,18 @@ Page {
     Image {
         id: clock1frame
         anchors.bottom: parent.bottom
-        anchors.horizontalCenter: parent.horizontalCenter
-        source: "graphics/clock1_frame.png"
+        x: appWindow.landscape ? parent.width / 2 : (parent.width - width) / 2
+        source: "graphics/clock1_frame_white.png"
         smooth: true
         Image {
             id: clock1knob
-            x: (parent.width - width) / 2 - 8
+            x: (parent.width - width) / 2
             y: (parent.height - height) / 2
-            source: "graphics/clock1_knob.png"
+            source: "graphics/clock1_knob_white.png"
             rotation: page.degrees
             smooth: true
             Behavior on rotation { PropertyAnimation { duration: 400 } }
         }
 
     }
-
 }
