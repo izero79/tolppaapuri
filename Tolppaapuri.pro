@@ -1,17 +1,35 @@
 # Add more folders to ship with the application, here
-folder_01.source = qml/Tolppaapuri_m
-folder_02.source = qml/Tolppaapuri_s
-folder_01.target = qml
-folder_02.target = qml
+#folder_01.source = qml/Tolppaapuri_m
+#folder_02.source = qml/Tolppaapuri_s
+#folder_01.target = qml
+#folder_02.target = qml
 
-!symbian{
-    DEPLOYMENTFOLDERS += folder_01
-}else{
-    DEPLOYMENTFOLDERS += folder_02
-}
+#!symbian{
+#    DEPLOYMENTFOLDERS += folder_01
+#}else{
+#    DEPLOYMENTFOLDERS += folder_02
+#}
+#macx|win32{
+#    DEPLOYMENTFOLDERS += folder_02
+#}
+
 macx|win32{
+    RESOURCES += resources_s.qrc
+    folder_01.source = qml/Tolppaapuri_m
+    folder_02.source = qml/Tolppaapuri_s
+    folder_01.target = qml
+    folder_02.target = qml
+    DEPLOYMENTFOLDERS += folder_01
     DEPLOYMENTFOLDERS += folder_02
 }
+
+
+VERSION = 0.1.0
+
+DEFINES += MAJORVERSION=0
+DEFINES += MINORVERSION=1
+DEFINES += PATCHVERSION=0
+
 
 # Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =
@@ -40,7 +58,10 @@ symbian:TARGET.UID3 = 0xE26B1165
 symbian:CONFIG += qt-components
 
 # The .cpp file which was generated for your project. Feel free to hack it.
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    applicationcontroller.cpp \
+    qmlwindow.cpp \
+    settings.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -54,4 +75,18 @@ OTHER_FILES += \
     qtc_packaging/debian_harmattan/control \
     qtc_packaging/debian_harmattan/compat \
     qtc_packaging/debian_harmattan/changelog
+}
+
+HEADERS += \
+    applicationcontroller.h \
+    qmlwindow.h \
+    settings.h
+
+!symbian{
+    RESOURCES += resources_m.qrc
+}else{
+    RESOURCES += resources_s.qrc
+}
+macx|win32{
+    RESOURCES += resources_s.qrc
 }

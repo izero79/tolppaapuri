@@ -1,19 +1,26 @@
 #include <QtGui/QApplication>
-#include "qmlapplicationviewer.h"
+#include <QLocale>
+#include <QTranslator>
+#include <QDebug>
+
+#include "applicationcontroller.h"
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
-    QScopedPointer<QApplication> app(createApplication(argc, argv));
+    QApplication app(argc, argv);
 
-    QmlApplicationViewer viewer;
-#if !defined(Q_OS_SYMBIAN)
-    viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
-    viewer.setMainQmlFile(QLatin1String("qml/Tolppaapuri_m/main.qml"));
-#else
-    viewer.setMainQmlFile(QLatin1String("qml/Tolppaapuri_s/main.qml"));
-#endif
+    QString locale = QLocale::system().name();
 
-    viewer.showExpanded();
+    QTranslator translator;
+    bool ok = translator.load(QString(":/tolppaapuri_") + locale);
+    if( !ok ) {
+        ok = translator.load(QString(":/tolppaapuri_en_US"));
+    }
+    app.installTranslator(&translator);
+    qDebug() << "main 1";
+    ApplicationController cont;
+    qDebug() << "main 2";
 
-    return app->exec();
+    return app.exec();
+
 }

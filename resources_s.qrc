@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/Tolppaapuri_s/main.qml</file>
+        <file>qml/Tolppaapuri_s/MainPage.qml</file>
+        <file>qml/Tolppaapuri_s/graphics/clock1_frame_white.png</file>
+        <file>qml/Tolppaapuri_s/graphics/clock1_knob_white.png</file>
+    </qresource>
+</RCC>

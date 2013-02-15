@@ -10,10 +10,22 @@ Page {
     property int degrees: 360 - parseInt(minutesToStartTime / 4)
     property int commonMargin: 8
     property int clockType: 1
+    property int setHour: appWindow.savedHour
+    property int setMinute: appWindow.savedMinute
 
     onCurrentTimeChanged: timeToStartString()
 
+    function setInitHour(savedHour) {
+        hoursSlider.value = savedHour
+    }
+
+    function setInitMinute(savedMinute) {
+        minutesSlider.value = savedMinute
+    }
+
     function startTimeString() {
+        page.setHour = hoursSlider.value
+        page.setMinute = minutesSlider.value
         if (minutesSlider.value < 10) {
             return hoursSlider.value + ":0" + minutesSlider.value
         } else {
@@ -132,7 +144,7 @@ Page {
             anchors.leftMargin: commonMargin
             anchors.right: parent.right
             anchors.rightMargin: commonMargin
-            text: qsTr("Nootti")
+            text: qsTr("")
             horizontalAlignment: Text.AlignHCenter
         }
     }

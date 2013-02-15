@@ -8,6 +8,19 @@ PageStackWindow {
     showStatusBar: true
     showToolBar: true
     property bool landscape: width > height
+    property int savedHour: 0
+    property int savedMinute: 0
+
+    signal saveTime(int hour, int minute)
+    signal quit()
+
+    onSavedHourChanged: mainPage.setInitHour(savedHour)
+    onSavedMinuteChanged: mainPage.setInitMinute(savedMinute)
+
+    function aboutToQuit() {
+        appWindow.saveTime(mainPage.setHour, mainPage.setMinute)
+        appWindow.quit()
+    }
 
     MainPage {
         id: mainPage
@@ -18,7 +31,7 @@ PageStackWindow {
         ToolButton {
             flat: true
             iconSource: "toolbar-back"
-            onClicked: appWindow.pageStack.depth <= 1 ? Qt.quit() : appWindow.pageStack.pop()
+            onClicked: appWindow.pageStack.depth <= 1 ? appWindow.aboutToQuit() : appWindow.pageStack.pop()
         }
         ToolButton {
             iconSource: "toolbar-menu"
