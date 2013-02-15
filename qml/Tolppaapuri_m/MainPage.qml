@@ -3,6 +3,7 @@ import com.nokia.meego 1.0
 
 Page {
     id: page
+    tools: commonTools
     property string currentTime: ""
     property string startTime: startTimeString()
     property string timeToStart: timeToStartString()
@@ -85,10 +86,9 @@ Page {
 
     Item {
         id: labelsContainer
-        anchors.top: parent.top
-        anchors.topMargin: commonMargin
+        y: appWindow.landscape ? commonMargin : parent.height / 2
         width: appWindow.landscape ? parent.width / 2 : parent.width
-        x: appWindow.landscape ? 0 : (parent.width - width) / 2
+        x: appWindow.landscape ? parent.width / 2 : (parent.width - width) / 2
         height: 130
 
         Label {
@@ -154,13 +154,28 @@ Page {
         id: timeToStartContainer
         anchors.top: labelsContainer.bottom
         width: appWindow.landscape ? parent.width / 2 : parent.width
-        x: appWindow.landscape ? 0 : (parent.width - width) / 2
+        x: appWindow.landscape ? parent.width / 2 : (parent.width - width) / 2
         height: 150
+
+        Label {
+            id: hoursToStartHeaderLabel
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            text: qsTr("Time to start:")
+        }
+        Label {
+            id: hoursToStartLabel
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: hoursToStartHeaderLabel.bottom
+            anchors.topMargin: commonMargin
+            text: timeToStart
+            font.pixelSize: 30
+        }
 
         Slider {
             id: hoursSlider
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: parent.top
+            anchors.top: hoursToStartLabel.bottom
             minimumValue: 0
             maximumValue: 23
             stepSize: 1
@@ -178,28 +193,12 @@ Page {
             width: parent.width
             onValueChanged: timeToStartString()
         }
-
-        Label {
-            id: hoursToStartHeaderLabel
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: minutesSlider.bottom
-            text: qsTr("Time to start:")
-        }
-        Label {
-            id: hoursToStartLabel
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: hoursToStartHeaderLabel.bottom
-            anchors.topMargin: commonMargin
-            text: timeToStart
-            font.pixelSize: 30
-        }
-
     }
 
     Image {
         id: clock1frame
-        anchors.bottom: parent.bottom
-        x: appWindow.landscape ? parent.width / 2 : (parent.width - width) / 2
+        anchors.top: parent.top
+        x: appWindow.landscape ? 0 : (parent.width - width) / 2
         source: "graphics/clock1_frame_white.png"
         smooth: true
         Image {
@@ -211,6 +210,5 @@ Page {
             smooth: true
             Behavior on rotation { PropertyAnimation { duration: 400 } }
         }
-
     }
 }
