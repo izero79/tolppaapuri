@@ -17,9 +17,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
         ok = translator.load(QString(":/tolppaapuri_en_US"));
     }
     app.installTranslator(&translator);
-    qDebug() << "main 1";
     ApplicationController cont;
-    qDebug() << "main 2";
 
     return app.exec();
 

@@ -27,6 +27,7 @@ Page {
     function startTimeString() {
         page.setHour = hoursSlider.value
         page.setMinute = minutesSlider.value
+        appWindow.saveTime(hoursSlider.value, minutesSlider.value)
         if (minutesSlider.value < 10) {
             return hoursSlider.value + ":0" + minutesSlider.value
         } else {

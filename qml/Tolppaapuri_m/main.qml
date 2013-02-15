@@ -7,13 +7,9 @@ PageStackWindow {
     initialPage: mainPage
 
 
-    property bool landscape: width > height
+    property bool landscape: !inPortrait
     property int savedHour: 0
     property int savedMinute: 0
-    property int mainHeight: 600
-    property int mainWidth: 600
-    height: mainHeight
-    width: mainWidth
 
     signal saveTime(int hour, int minute)
     signal quit()

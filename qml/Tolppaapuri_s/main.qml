@@ -7,7 +7,7 @@ PageStackWindow {
     initialPage: mainPage
     showStatusBar: true
     showToolBar: true
-    property bool landscape: width > height
+    property bool landscape: !inPortrait
     property int savedHour: 0
     property int savedMinute: 0
 

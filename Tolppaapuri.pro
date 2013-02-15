@@ -14,7 +14,6 @@
 #}
 
 macx|win32{
-    RESOURCES += resources_s.qrc
     folder_01.source = qml/Tolppaapuri_m
     folder_02.source = qml/Tolppaapuri_s
     folder_01.target = qml

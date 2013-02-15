@@ -22,12 +22,12 @@ void ApplicationController::initGUI()
 
 void ApplicationController::initObjects()
 {
-    qDebug() << "taalla";
     mQMLWin->init();
 }
 
 ApplicationController::~ApplicationController()
 {
+    mQMLWin->setSavedTime();
     mQMLWin->deleteLater();
     mQMLWin = 0;
 }

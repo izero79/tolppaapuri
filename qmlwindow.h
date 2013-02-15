@@ -12,6 +12,7 @@ public:
 
 public slots:
     void init();
+    void setSavedTime();
 
 private slots:
     void saveTime(int hours, int minutes);
@@ -22,6 +23,8 @@ signals:
 private:
     QDeclarativeContext *mRootContext;
     QObject *mRootObject;
+    int mHours;
+    int mMinutes;
 
 };
 

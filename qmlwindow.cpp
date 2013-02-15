@@ -11,7 +11,9 @@
 QMLWindow::QMLWindow(QWidget *parent) :
     QDeclarativeView(parent),
     mRootContext(0),
-    mRootObject(0)
+    mRootObject(0),
+    mHours(0),
+    mMinutes(0)
 {
     setResizeMode(QDeclarativeView::SizeRootObjectToView);
     mRootContext = rootContext();
@@ -23,9 +25,6 @@ QMLWindow::QMLWindow(QWidget *parent) :
     setSource(QUrl("qrc:qml/Tolppaapuri_m/main.qml"));
     mRootObject = dynamic_cast<QObject*>(rootObject());
 #endif
-    mRootContext->setContextProperty("mainWidth", QApplication::desktop()->width());
-    mRootContext->setContextProperty("mainHeight", QApplication::desktop()->height());
-
 }
 
 QMLWindow::~QMLWindow()
@@ -47,13 +46,15 @@ void QMLWindow::init()
     connect(mRootObject,SIGNAL(saveTime(int,int)),this,SLOT(saveTime(int,int)));
 
     QPair<int,int> savedTime = Settings::savedTime();
-    qDebug() << "joo";
     mRootObject->setProperty("savedHour", savedTime.first);
     mRootObject->setProperty("savedMinute", savedTime.second);
-    qDebug() << "jep";
 }
 
 void QMLWindow::saveTime(int hours, int minutes) {
-    Settings::saveTime(hours, minutes);
+    mHours = hours;
+    mMinutes = minutes;
 }
 
+void QMLWindow::setSavedTime() {
+    Settings::saveTime(mHours, mMinutes);
+}
