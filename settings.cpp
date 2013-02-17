@@ -27,3 +27,17 @@ void Settings::saveTime(int hours, int minutes)
     settings.setValue("savedHour", hours);
     settings.setValue("savedMinute", minutes);
 }
+
+int Settings::savedType()
+{
+    QSettings settings("TeSi", "tolppaapuri");
+    int type = settings.value("savedType", 1).toInt();
+    return type;
+}
+
+void Settings::saveType(int type)
+{
+    qDebug() << "save" << type;
+    QSettings settings("TeSi", "tolppaapuri");
+    settings.setValue("savedType", type);
+}

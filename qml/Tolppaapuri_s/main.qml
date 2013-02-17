@@ -10,12 +10,15 @@ PageStackWindow {
     property bool landscape: !inPortrait
     property int savedHour: 0
     property int savedMinute: 0
+    property int savedType: 1
 
     signal saveTime(int hour, int minute)
+    signal saveClockType(int type)
     signal quit()
 
     onSavedHourChanged: mainPage.setInitHour(savedHour)
     onSavedMinuteChanged: mainPage.setInitMinute(savedMinute)
+    onSavedTypeChanged: mainPage.setInitClockType(savedMinute)
 
     function aboutToQuit() {
         appWindow.saveTime(mainPage.setHour, mainPage.setMinute)
@@ -54,6 +57,7 @@ PageStackWindow {
                     {
                         mainPage.clockType = 1
                     }
+                    appWindow.saveClockType(mainPage.clockType)
                 }
             }
         }

@@ -4,5 +4,8 @@
         <file>qml/Tolppaapuri_s/MainPage.qml</file>
         <file>qml/Tolppaapuri_s/graphics/clock1_frame_white.png</file>
         <file>qml/Tolppaapuri_s/graphics/clock1_knob_white.png</file>
+        <file>qml/Tolppaapuri_s/graphics/clock2_frame_white.png</file>
+        <file>qml/Tolppaapuri_s/graphics/clock2_knob_white.png</file>
+        <file>qml/Tolppaapuri_s/graphics/clock2_mark_white.png</file>
     </qresource>
 </RCC>

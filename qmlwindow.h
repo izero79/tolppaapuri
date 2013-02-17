@@ -16,6 +16,7 @@ public slots:
 
 private slots:
     void saveTime(int hours, int minutes);
+    void saveClockType(int type);
 
 signals:
     void quit();

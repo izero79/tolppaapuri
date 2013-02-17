@@ -7,8 +7,10 @@ Page {
     property string currentTime: ""
     property string startTime: startTimeString()
     property string timeToStart: timeToStartString()
+    property int currentTimeInMinutes: 0
     property int minutesToStartTime: 0
     property int degrees: 360 - parseInt(minutesToStartTime / 4)
+    property int currentTimeDegrees: - (360 - parseInt(currentTimeInMinutes / 4))
     property int commonMargin: 8
     property int clockType: 1
     property int setHour: appWindow.savedHour
@@ -22,6 +24,10 @@ Page {
 
     function setInitMinute(savedMinute) {
         minutesSlider.value = savedMinute
+    }
+
+    function setInitClockType(savedType) {
+        clockType = savedType
     }
 
     function startTimeString() {
@@ -51,6 +57,9 @@ Page {
             hoursToStart = hoursToStart - 1
             minutesToStart = 60 + minutesToStart
         }
+        page.currentTimeInMinutes = parseInt(timeNow.getHours() * 60 + timeNow.getMinutes())
+        //console.log("minutes now: " + page.currentTimeInMinutes)
+        //console.log("degrees: " + page.currentTimeDegrees)
         //console.log("minutes to start: " + page.minutesToStartTime)
         //console.log("degrees: " + page.degrees)
         if (minutesToStart<10) {
@@ -196,19 +205,30 @@ Page {
     }
 
     Image {
-        id: clock1frame
-        anchors.top: parent.top
-        x: appWindow.landscape ? 0 : (parent.width - width) / 2
-        source: "graphics/clock1_frame_white.png"
+        id: clockFrame
+        anchors.bottom: parent.bottom
+        x: appWindow.landscape ? parent.width / 2 : (parent.width - width) / 2
+        source: clockType == 1 ? "graphics/clock1_frame_white.png" : "graphics/clock2_frame_white.png"
         smooth: true
-        Image {
-            id: clock1knob
-            x: (parent.width - width) / 2
-            y: (parent.height - height) / 2
-            source: "graphics/clock1_knob_white.png"
-            rotation: page.degrees
-            smooth: true
-            Behavior on rotation { PropertyAnimation { duration: 400 } }
-        }
+        rotation: clockType == 1 ? 0 : page.degrees + 30
+        Behavior on rotation { PropertyAnimation { duration: 400 } }
     }
+    Image {
+        id: clockKnob
+        x: clockFrame.x + (clockFrame.width - width) / 2
+        y: clockFrame.y + (clockFrame.height - height) / 2
+        source: clockType == 1 ? "graphics/clock1_knob_white.png" : "graphics/clock2_knob_white.png"
+        rotation: clockType == 1 ? page.degrees : page.currentTimeDegrees
+        smooth: true
+        Behavior on rotation { PropertyAnimation { duration: 400 } }
+    }
+    Image {
+        id: clockMarker
+        anchors.bottom: parent.bottom
+        x: appWindow.landscape ? parent.width / 2 : (parent.width - width) / 2
+        source: clockType == 1 ? "" : "graphics/clock2_mark_white.png"
+        smooth: true
+        visible: clockType == 1 ? false : true
+    }
+
 }

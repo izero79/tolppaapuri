@@ -44,10 +44,14 @@ void QMLWindow::init()
 
     connect(mRootObject,SIGNAL(quit()),this,SIGNAL(quit()));
     connect(mRootObject,SIGNAL(saveTime(int,int)),this,SLOT(saveTime(int,int)));
+    connect(mRootObject,SIGNAL(saveClockType(int)),this,SLOT(saveClockType(int)));
 
     QPair<int,int> savedTime = Settings::savedTime();
     mRootObject->setProperty("savedHour", savedTime.first);
     mRootObject->setProperty("savedMinute", savedTime.second);
+
+    int savedType = Settings::savedType();
+    mRootObject->setProperty("savedType", savedType);
 }
 
 void QMLWindow::saveTime(int hours, int minutes) {
@@ -57,4 +61,8 @@ void QMLWindow::saveTime(int hours, int minutes) {
 
 void QMLWindow::setSavedTime() {
     Settings::saveTime(mHours, mMinutes);
+}
+
+void QMLWindow::saveClockType(int type) {
+    Settings::saveType(type);
 }
