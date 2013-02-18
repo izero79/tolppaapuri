@@ -59,16 +59,31 @@ symbian{
 
     DEPLOYMENT += customrules
 
-
     # Smart Installer package's UID
     # This UID is from the protected range and therefore the package will
     # fail to install if self-signed. By default qmake uses the unprotected
     # range value if unprotected UID is defined for the application and
     # 0x2002CCCF value if protected UID is given to the application
-    #symbian:DEPLOYMENT.installer_header = 0x2002CCCF
+    DEPLOYMENT.installer_header = 0x2002CCCF
 
     # Allow network access on Symbian
     #symbian:TARGET.CAPABILITY += NetworkServices
+
+    symbian3 = \
+    "; Symbian3" \
+    "[0x20022E6D],0,0,0,{\"S60ProductId\"}"
+
+    qtcomponents = \
+    "; Dependency to QtComponenrs" \
+    "(0x200346DE), 1, 1, 0 , {\"Qt Quick components for Symbian\"}"
+
+    #remove platform dependencies only
+    default_deployment.pkg_prerules -= pkg_platform_dependencies
+
+    my_deployment.pkg_prerules += symbian3 qtcomponents
+        MMP_RULES += "DEBUGGABLE_UDEBONLY"
+    DEPLOYMENT += my_deployment
+
 }
 
 # If your application uses the Qt Mobility libraries, uncomment the following
