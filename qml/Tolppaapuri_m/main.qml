@@ -29,6 +29,7 @@ PageStackWindow {
         id: mainPage
         tools: commonTools
     }
+
     ToolBarLayout {
         id: commonTools
         visible: true

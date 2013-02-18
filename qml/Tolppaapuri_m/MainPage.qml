@@ -204,31 +204,35 @@ Page {
         }
     }
 
-    Image {
-        id: clockFrame
-        anchors.bottom: parent.bottom
-        x: appWindow.landscape ? parent.width / 2 : (parent.width - width) / 2
-        source: clockType == 1 ? "graphics/clock1_frame_white.png" : "graphics/clock2_frame_white.png"
-        smooth: true
-        rotation: clockType == 1 ? 0 : page.degrees + 30
-        Behavior on rotation { PropertyAnimation { duration: 400 } }
-    }
-    Image {
-        id: clockKnob
-        x: clockFrame.x + (clockFrame.width - width) / 2
-        y: clockFrame.y + (clockFrame.height - height) / 2
-        source: clockType == 1 ? "graphics/clock1_knob_white.png" : "graphics/clock2_knob_white.png"
-        rotation: clockType == 1 ? page.degrees : page.currentTimeDegrees
-        smooth: true
-        Behavior on rotation { PropertyAnimation { duration: 400 } }
-    }
-    Image {
-        id: clockMarker
-        anchors.bottom: parent.bottom
-        x: appWindow.landscape ? parent.width / 2 : (parent.width - width) / 2
-        source: clockType == 1 ? "" : "graphics/clock2_mark_white.png"
-        smooth: true
-        visible: clockType == 1 ? false : true
+    Item {
+        anchors.top: parent.top
+        x: appWindow.landscape ? 0 : (parent.width - width) / 2
+        width: appWindow.landscape ? parent.width / 2 : parent.width
+        height: appWindow.landscape ? parent.height : parent.height / 2
+
+        Image {
+            id: clockFrame
+            anchors.centerIn: parent
+            source: clockType == 1 ? "graphics/clock1_frame_white.png" : "graphics/clock2_frame_white.png"
+            smooth: true
+            rotation: clockType == 1 ? 0 : page.degrees + 30
+            Behavior on rotation { PropertyAnimation { duration: 400 } }
+        }
+        Image {
+            id: clockKnob
+            anchors.centerIn: parent
+            source: clockType == 1 ? "graphics/clock1_knob_white.png" : "graphics/clock2_knob_white.png"
+            rotation: clockType == 1 ? page.degrees : page.currentTimeDegrees
+            smooth: true
+            Behavior on rotation { PropertyAnimation { duration: 400 } }
+        }
+        Image {
+            id: clockMarker
+            anchors.centerIn: parent
+            source: clockType == 1 ? "" : "graphics/clock2_mark_white.png"
+            smooth: true
+            visible: clockType == 1 ? false : true
+        }
     }
 
 }
