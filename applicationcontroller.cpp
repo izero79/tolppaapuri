@@ -1,6 +1,5 @@
 #include <QTimer>
 #include <QCoreApplication>
-#include <QDebug>
 
 #include "applicationcontroller.h"
 #include "qmlwindow.h"
@@ -35,4 +34,27 @@ ApplicationController::~ApplicationController()
 void ApplicationController::quit()
 {
     qApp->quit();
+}
+
+bool ApplicationController::eventFilter(QObject *obj, QEvent *event)
+{
+    if (event->type() == QEvent::ApplicationDeactivate) {
+        // The application deactivation can be handled here
+        // send stop timers to qml
+        if( mQMLWin )
+        {
+            mQMLWin->activeStateChanged( false );
+        }
+        return QObject::eventFilter(obj, event); // The event is handled
+    }
+    if (event->type() == QEvent::ApplicationActivate) {
+        // The application activation can be handled here
+        // send start timers to qml
+        if( mQMLWin )
+        {
+            mQMLWin->activeStateChanged( true );
+        }
+        return QObject::eventFilter(obj, event);
+    }
+    return QObject::eventFilter(obj, event); // Unhandled events are passed to the base class
 }

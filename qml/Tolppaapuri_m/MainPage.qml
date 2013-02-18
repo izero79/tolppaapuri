@@ -85,7 +85,7 @@ Page {
     Timer {
         id: timeTimer
         interval: 2000
-        running: true
+        running: !appWindow.appInBackground
         repeat: true
         triggeredOnStart: true
         onTriggered: {

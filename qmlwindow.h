@@ -13,6 +13,7 @@ public:
 public slots:
     void init();
     void setSavedTime();
+    void activeStateChanged(bool active);
 
 private slots:
     void saveTime(int hours, int minutes);

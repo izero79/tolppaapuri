@@ -3,7 +3,6 @@
 #include <QDeclarativeView>
 #include <QDesktopWidget>
 #include <QGraphicsObject>
-#include <QDebug>
 
 #include "qmlwindow.h"
 #include "settings.h"
@@ -65,4 +64,8 @@ void QMLWindow::setSavedTime() {
 
 void QMLWindow::saveClockType(int type) {
     Settings::saveType(type);
+}
+
+void QMLWindow::activeStateChanged(bool active) {
+    mRootObject->setProperty("appInBackground", !active);
 }

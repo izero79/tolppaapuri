@@ -1,17 +1,13 @@
-# Add more folders to ship with the application, here
-#folder_01.source = qml/Tolppaapuri_m
-#folder_02.source = qml/Tolppaapuri_s
-#folder_01.target = qml
-#folder_02.target = qml
+CONFIG  -=forOvi
+CONFIG  -=forUnsigned
+DEFINES +=DEBUGONLYTOFILE
+CONFIG  +=mobility
 
-#!symbian{
-#    DEPLOYMENTFOLDERS += folder_01
-#}else{
-#    DEPLOYMENTFOLDERS += folder_02
-#}
-#macx|win32{
-#    DEPLOYMENTFOLDERS += folder_02
-#}
+VERSION = 0.9.0
+
+DEFINES += MAJORVERSION=0
+DEFINES += MINORVERSION=9
+DEFINES += PATCHVERSION=0
 
 macx|win32{
     folder_01.source = qml/Tolppaapuri_m
@@ -23,27 +19,57 @@ macx|win32{
 }
 
 
-VERSION = 0.1.0
-
-DEFINES += MAJORVERSION=0
-DEFINES += MINORVERSION=1
-DEFINES += PATCHVERSION=0
-
+DEPLOYMENT.display_name = "Tolppa-apuri"
 
 # Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =
 
-symbian:TARGET.UID3 = 0xE26B1165
+symbian{
+    forOvi{
+        # For symbian signed app
+        # when building signed app, enable define below
+        DEFINES += BUILDFORSIGNED
 
-# Smart Installer package's UID
-# This UID is from the protected range and therefore the package will
-# fail to install if self-signed. By default qmake uses the unprotected
-# range value if unprotected UID is defined for the application and
-# 0x2002CCCF value if protected UID is given to the application
-#symbian:DEPLOYMENT.installer_header = 0x2002CCCF
+        # UID for ovi store for Lite
+        symbian:TARGET.UID3 = 0x20046EA1
 
-# Allow network access on Symbian
-#symbian:TARGET.CAPABILITY += NetworkServices
+
+    }else{
+        !forUnsigned{
+            # For symbian signed app
+            # when building signed app, enable define below
+            DEFINES += BUILDFORSIGNED
+
+            # UID for symbian signed
+            symbian:TARGET.UID3 = 0x20046EA1
+
+        }else{
+            # For self signed app:
+            # UID for self signed
+            symbian:TARGET.UID3 =  0xA001615F
+        }
+    }
+
+    customrules.pkg_prerules = \
+            "; Localised Vendor name" \
+            "%{\"Tero Siironen\"}" \
+            " " \
+            "; Unique Vendor name" \
+            ":\"Tero Siironen\""
+
+    DEPLOYMENT += customrules
+
+
+    # Smart Installer package's UID
+    # This UID is from the protected range and therefore the package will
+    # fail to install if self-signed. By default qmake uses the unprotected
+    # range value if unprotected UID is defined for the application and
+    # 0x2002CCCF value if protected UID is given to the application
+    #symbian:DEPLOYMENT.installer_header = 0x2002CCCF
+
+    # Allow network access on Symbian
+    #symbian:TARGET.CAPABILITY += NetworkServices
+}
 
 # If your application uses the Qt Mobility libraries, uncomment the following
 # lines and add the respective components to the MOBILITY variable.

@@ -2,6 +2,7 @@
 #define APPLICATIONCONTROLLER_H
 
 #include <QObject>
+
 class QMLWindow;
 
 class ApplicationController : public QObject
@@ -10,6 +11,8 @@ class ApplicationController : public QObject
 public:
     explicit ApplicationController(QObject *parent = 0);
     ~ApplicationController();
+
+    bool eventFilter(QObject *obj, QEvent *event);
 
 public slots:
     void quit();

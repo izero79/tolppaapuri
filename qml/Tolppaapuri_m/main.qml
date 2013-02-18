@@ -8,6 +8,7 @@ PageStackWindow {
 
 
     property bool landscape: !inPortrait
+    property bool appInBackground: false
     property int savedHour: 0
     property int savedMinute: 0
     property int savedType: 1

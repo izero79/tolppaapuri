@@ -1,6 +1,4 @@
 #include <QSettings>
-#include <QStringList>
-#include <QDebug>
 
 #include "settings.h"
 
@@ -22,7 +20,6 @@ QPair<int,int> Settings::savedTime()
 
 void Settings::saveTime(int hours, int minutes)
 {
-    qDebug() << "savet" << hours << minutes;
     QSettings settings("TeSi", "tolppaapuri");
     settings.setValue("savedHour", hours);
     settings.setValue("savedMinute", minutes);
@@ -37,7 +34,6 @@ int Settings::savedType()
 
 void Settings::saveType(int type)
 {
-    qDebug() << "save" << type;
     QSettings settings("TeSi", "tolppaapuri");
     settings.setValue("savedType", type);
 }

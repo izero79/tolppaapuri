@@ -1,7 +1,6 @@
 #include <QtGui/QApplication>
 #include <QLocale>
 #include <QTranslator>
-#include <QDebug>
 
 #include "applicationcontroller.h"
 
@@ -18,6 +17,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     }
     app.installTranslator(&translator);
     ApplicationController cont;
+
+    app.installEventFilter(&cont); // Installing the event filter
 
     return app.exec();
 
