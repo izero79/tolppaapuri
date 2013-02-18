@@ -89,3 +89,6 @@ HEADERS += \
 macx|win32{
     RESOURCES += resources_s.qrc
 }
+
+RESOURCES += \
+    translations.qrc

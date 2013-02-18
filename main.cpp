@@ -12,9 +12,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QString locale = QLocale::system().name();
 
     QTranslator translator;
-    bool ok = translator.load(QString(":/tolppaapuri_") + locale);
+    bool ok = translator.load(QString(":/tolppa-apuri_") + locale);
     if( !ok ) {
-        ok = translator.load(QString(":/tolppaapuri_en_US"));
+        ok = translator.load(QString(":/tolppa-apuri_en_US"));
     }
     app.installTranslator(&translator);
     ApplicationController cont;

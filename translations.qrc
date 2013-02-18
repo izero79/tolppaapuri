@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>tolppa-apuri_en.qm</file>
+        <file>tolppa-apuri_fi.qm</file>
+        <file>tolppa-apuri_sv.qm</file>
+    </qresource>
+</RCC>
