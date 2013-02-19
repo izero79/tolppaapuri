@@ -7,6 +7,7 @@ PageStackWindow {
     initialPage: mainPage
     showStatusBar: true
     showToolBar: true
+    property string versionString: "0.0.0"
     property bool landscape: !inPortrait
     property bool appInBackground: false
     property int savedHour: 0
@@ -61,6 +62,71 @@ PageStackWindow {
                     appWindow.saveClockType(mainPage.clockType)
                 }
             }
+            MenuItem {
+                text: qsTr("About")
+                onClicked: {
+                    aboutDialog.open()
+                }
+            }
+        }
+    }
+
+    Loader {
+        id: aboutDialog
+
+        function open()
+        {
+            source = Qt.resolvedUrl( "AboutDialog.qml" )
+            if( item != null )
+            {
+                item.screenX = -x
+                item.screenY = -y
+                item.open()
+            }
+        }
+
+        function close()
+        {
+            if( item != null )
+            {
+                item.close()
+            }
+            source = ""
+        }
+
+        function isVisible()
+        {
+            if( item != null )
+            {
+                return item.isVisible
+            }
+            return false
+        }
+
+        anchors.centerIn: parent
+        width: appWindow.inPortrait ? parent.width / 3 * 2: parent.width / 5 * 2
+        height: appWindow.inPortrait ? parent.height / 6 * 2 : parent.height / 5 * 3
+        source: ""
+        z: 100
+        onYChanged: {
+            if( item != null )
+            {
+                item.screenX = -x
+                item.screenY = -y
+            }
+        }
+    }
+
+    Connections {
+        target: aboutDialog.item
+        onButton1Clicked: {
+            aboutDialog.close()
+        }
+        onCanceled: {
+            aboutDialog.close()
+        }
+        onOpenHomepage: {
+            appWindow.openUrl( "http://www.iki.fi/z7/tolppaapuri" )
         }
     }
 }

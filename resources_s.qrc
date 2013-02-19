@@ -7,5 +7,7 @@
         <file>qml/Tolppaapuri_s/graphics/clock2_frame_white.png</file>
         <file>qml/Tolppaapuri_s/graphics/clock2_knob_white.png</file>
         <file>qml/Tolppaapuri_s/graphics/clock2_mark_white.png</file>
+        <file>qml/Tolppaapuri_s/AboutDialog.qml</file>
+        <file>qml/Tolppaapuri_s/graphics/tolppaapuri96.png</file>
     </qresource>
 </RCC>
