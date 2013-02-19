@@ -104,8 +104,8 @@ PageStackWindow {
         }
 
         anchors.centerIn: parent
-        width: appWindow.inPortrait ? parent.width / 3 * 2: parent.width / 5 * 2
-        height: appWindow.inPortrait ? parent.height / 6 * 2 : parent.height / 5 * 3
+        width: appWindow.inPortrait ? mainPage.width : mainPage.width / 5 * 3
+        height: appWindow.inPortrait ? mainPage.height / 5 * 2 : mainPage.height / 5 * 4
         source: ""
         z: 100
         onYChanged: {

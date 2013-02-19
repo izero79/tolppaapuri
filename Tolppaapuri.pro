@@ -30,8 +30,8 @@ symbian{
         # when building signed app, enable define below
         DEFINES += BUILDFORSIGNED
 
-        # UID for ovi store for Lite
-        symbian:TARGET.UID3 = 0x20046EA1
+        # UID for ovi store
+        symbian:TARGET.UID3 = 0x20046EA3
 
 
     }else{
@@ -41,7 +41,7 @@ symbian{
             DEFINES += BUILDFORSIGNED
 
             # UID for symbian signed
-            symbian:TARGET.UID3 = 0x20046EA1
+            symbian:TARGET.UID3 = 0x2006F437
 
         }else{
             # For self signed app:
