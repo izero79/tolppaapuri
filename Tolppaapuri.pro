@@ -3,10 +3,10 @@ CONFIG  -=forUnsigned
 DEFINES +=DEBUGONLYTOFILE
 CONFIG  +=mobility
 
-VERSION = 0.9.0
+VERSION = 1.0.0
 
-DEFINES += MAJORVERSION=0
-DEFINES += MINORVERSION=9
+DEFINES += MAJORVERSION=1
+DEFINES += MINORVERSION=0
 DEFINES += PATCHVERSION=0
 
 macx|win32{
@@ -81,7 +81,7 @@ symbian{
     default_deployment.pkg_prerules -= pkg_platform_dependencies
 
     my_deployment.pkg_prerules += symbian3 qtcomponents
-        MMP_RULES += "DEBUGGABLE_UDEBONLY"
+    MMP_RULES += "DEBUGGABLE_UDEBONLY"
     DEPLOYMENT += my_deployment
 
 }
