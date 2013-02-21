@@ -10,11 +10,14 @@ Page {
     property int currentTimeInMinutes: 0
     property int minutesToStartTime: 0
     property int degrees: 360 - parseInt(minutesToStartTime / 4)
-    property int currentTimeDegrees: - (360 - parseInt(currentTimeInMinutes / 4))
+    property int degreesWithOffset: 360 - parseInt((minutesToStartTime-offsetDiff) / 4)
+    property int currentTimeDegrees: - (360 - parseInt((currentTimeInMinutes+offsetDiff) / 4))
     property int commonMargin: 2
     property int clockType: 1
     property int setHour: appWindow.savedHour
     property int setMinute: appWindow.savedMinute
+    property bool dstChange: false
+    property int offsetDiff: 0
 
     onCurrentTimeChanged: timeToStartString()
 
@@ -46,9 +49,28 @@ Page {
         var startDate = new Date();
         startDate.setHours(hoursSlider.value)
         startDate.setMinutes(minutesSlider.value)
+        /*
+        // for testing
+        startDate.setMonth(9)
+        startDate.setDate(26)
+        timeNow.setMonth(9)
+        timeNow.setDate(26)
+        */
+        //console.log("time now: " + timeNow)
         if (startTomorrow() === true) {
             startDate.setDate(startDate.getDate() + 1)
         }
+        //console.log("start time: " + startDate)
+        var offsetNow = timeNow.getTimezoneOffset()
+        var offsetStart = startDate.getTimezoneOffset()
+        //console.log("offsetNow: " + offsetNow + ", offsetStart: " + offsetStart)
+        offsetDiff = offsetStart - offsetNow
+        if (offsetDiff != 0) {
+            dstChange = true
+        } else {
+            dstChange = false
+        }
+
         var toStart = startDate - timeNow
         page.minutesToStartTime = parseInt(toStart / 1000 / 60)
         var hoursToStart = parseInt(toStart / 1000 / 60 / 60)
@@ -120,42 +142,42 @@ Page {
             width: parent.width / 2
             text: currentTime
             horizontalAlignment: Text.AlignHCenter
-            font.pixelSize: 26
+            font.pixelSize: 24
         }
 
         Label {
-            id: startTimeHeaderLabel
+            id: hoursToStartHeaderLabel
             anchors.top: parent.top
             anchors.topMargin: commonMargin
             anchors.right: parent.right
             anchors.rightMargin: commonMargin
             width: parent.width / 2
-            text: qsTr("Start time:")
+            text: qsTr("Time to start:")
             horizontalAlignment: Text.AlignHCenter
         }
-
         Label {
-            id: startTimeLabel
-            anchors.top: startTimeHeaderLabel.bottom
+            id: hoursToStartLabel
+            anchors.top: hoursToStartHeaderLabel.bottom
             anchors.topMargin: commonMargin
             anchors.right: parent.right
             anchors.rightMargin: commonMargin
             width: parent.width / 2
-            text: startTime
-            font.pixelSize: 26
+            text: timeToStart
             horizontalAlignment: Text.AlignHCenter
+            font.pixelSize: 24
         }
 
         Label {
             id: noteLabel
-            anchors.top: startTimeLabel.bottom
+            anchors.top: hoursToStartLabel.bottom
             anchors.topMargin: commonMargin
             anchors.left: parent.left
             anchors.leftMargin: commonMargin
             anchors.right: parent.right
             anchors.rightMargin: commonMargin
-            text: qsTr("")
+            text: qsTr("DST change taken into account")
             horizontalAlignment: Text.AlignHCenter
+            visible: dstChange
         }
     }
 
@@ -167,24 +189,27 @@ Page {
         height: 150
 
         Label {
-            id: hoursToStartHeaderLabel
+            id: startTimeHeaderLabel
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
-            text: qsTr("Time to start:")
+            text: qsTr("Start time:")
+            horizontalAlignment: Text.AlignHCenter
         }
+
         Label {
-            id: hoursToStartLabel
+            id: startTimeLabel
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: hoursToStartHeaderLabel.bottom
+            anchors.top: startTimeHeaderLabel.bottom
             anchors.topMargin: commonMargin
-            text: timeToStart
-            font.pixelSize: 26
+            text: startTime
+            font.pixelSize: 30
+            horizontalAlignment: Text.AlignHCenter
         }
 
         Slider {
             id: hoursSlider
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: hoursToStartLabel.bottom
+            anchors.top: startTimeLabel.bottom
             minimumValue: 0
             maximumValue: 23
             stepSize: 1
@@ -216,7 +241,7 @@ Page {
             anchors.centerIn: parent
             source: clockType == 1 ? "graphics/clock1_frame_white.png" : "graphics/clock2_frame_white.png"
             smooth: true
-            rotation: clockType == 1 ? 0 : page.degrees + 30
+            rotation: clockType == 1 ? 0 : page.degreesWithOffset + 30
             Behavior on rotation { PropertyAnimation { duration: 400 } }
         }
         Image {

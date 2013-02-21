@@ -19,14 +19,20 @@
 <context>
     <name>MainPage</name>
     <message>
-        <location filename="qml/Tolppaapuri_m/MainPage.qml" line="110"/>
-        <location filename="qml/Tolppaapuri_s/MainPage.qml" line="110"/>
+        <location filename="qml/Tolppaapuri_m/MainPage.qml" line="132"/>
+        <location filename="qml/Tolppaapuri_s/MainPage.qml" line="132"/>
         <source>Current time:</source>
         <translation>Nykyinen aika:</translation>
     </message>
     <message>
-        <location filename="qml/Tolppaapuri_m/MainPage.qml" line="133"/>
-        <location filename="qml/Tolppaapuri_s/MainPage.qml" line="133"/>
+        <location filename="qml/Tolppaapuri_m/MainPage.qml" line="178"/>
+        <location filename="qml/Tolppaapuri_s/MainPage.qml" line="178"/>
+        <source>DST change taken into account</source>
+        <translation>Kesäajan muutos huomioitu</translation>
+    </message>
+    <message>
+        <location filename="qml/Tolppaapuri_m/MainPage.qml" line="195"/>
+        <location filename="qml/Tolppaapuri_s/MainPage.qml" line="195"/>
         <source>Start time:</source>
         <translation>Lähtöaika:</translation>
     </message>
@@ -36,8 +42,8 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="qml/Tolppaapuri_m/MainPage.qml" line="173"/>
-        <location filename="qml/Tolppaapuri_s/MainPage.qml" line="173"/>
+        <location filename="qml/Tolppaapuri_m/MainPage.qml" line="155"/>
+        <location filename="qml/Tolppaapuri_s/MainPage.qml" line="155"/>
         <source>Time to start:</source>
         <translation>Aikaa lähtöön:</translation>
     </message>
