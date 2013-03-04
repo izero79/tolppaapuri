@@ -3,6 +3,7 @@
 #include <QDeclarativeView>
 #include <QDesktopWidget>
 #include <QGraphicsObject>
+#include <QDesktopServices>
 
 #include "qmlwindow.h"
 #include "settings.h"
@@ -44,6 +45,7 @@ void QMLWindow::init()
     connect(mRootObject,SIGNAL(quit()),this,SIGNAL(quit()));
     connect(mRootObject,SIGNAL(saveTime(int,int)),this,SLOT(saveTime(int,int)));
     connect(mRootObject,SIGNAL(saveClockType(int)),this,SLOT(saveClockType(int)));
+    connect(mRootObject,SIGNAL(openUrl(QString)),this,SLOT(openBrowser(QString)));
 
     QPair<int,int> savedTime = Settings::savedTime();
     mRootObject->setProperty("savedHour", savedTime.first);
@@ -68,4 +70,9 @@ void QMLWindow::saveClockType(int type) {
 
 void QMLWindow::activeStateChanged(bool active) {
     mRootObject->setProperty("appInBackground", !active);
+}
+
+void QMLWindow::openBrowser( const QString &url )
+{
+    QDesktopServices::openUrl(QUrl(url));
 }

@@ -136,7 +136,6 @@ FocusScope {
                     buttonDialog.openHomepage()
                 }
             }
-            visible: false
         }
 
         Button {

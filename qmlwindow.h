@@ -18,6 +18,7 @@ public slots:
 private slots:
     void saveTime(int hours, int minutes);
     void saveClockType(int type);
+    void openBrowser( const QString &url );
 
 signals:
     void quit();

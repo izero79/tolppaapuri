@@ -29,9 +29,10 @@ symbian{
         # For symbian signed app
         # when building signed app, enable define below
         DEFINES += BUILDFORSIGNED
+        TARGET.CAPABILITY += SwEvent
 
         # UID for ovi store
-        symbian:TARGET.UID3 = 0x20046EA3
+        TARGET.UID3 = 0x20046EA3
 
 
     }else{
@@ -39,14 +40,15 @@ symbian{
             # For symbian signed app
             # when building signed app, enable define below
             DEFINES += BUILDFORSIGNED
+            TARGET.CAPABILITY += SwEvent
 
             # UID for symbian signed
-            symbian:TARGET.UID3 = 0x2006F437
+            TARGET.UID3 = 0x2006F437
 
         }else{
             # For self signed app:
             # UID for self signed
-            symbian:TARGET.UID3 =  0xA001615F
+            TARGET.UID3 =  0xA001615F
         }
     }
 

@@ -17,6 +17,7 @@ PageStackWindow {
     signal saveTime(int hour, int minute)
     signal saveClockType(int type)
     signal quit()
+    signal openUrl(string url)
 
     onSavedHourChanged: mainPage.setInitHour(savedHour)
     onSavedMinuteChanged: mainPage.setInitMinute(savedMinute)
