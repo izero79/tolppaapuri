@@ -9,7 +9,7 @@ DEFINES += MAJORVERSION=1
 DEFINES += MINORVERSION=0
 DEFINES += PATCHVERSION=0
 
-macx|win32{
+unix|macx|win32{
     folder_01.source = qml/Tolppaapuri_m
     folder_02.source = qml/Tolppaapuri_s
     folder_01.target = qml

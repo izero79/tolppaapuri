@@ -1,14 +1,14 @@
 import QtQuick 1.1
-import com.nokia.meego 1.0
+import Sailfish.Silica 1.0
 
-PageStackWindow {
+ApplicationWindow {
     id: appWindow
 
     initialPage: mainPage
 
 
     property string versionString: "0.0.0"
-    property bool landscape: !inPortrait
+    property bool landscape: false
     property bool appInBackground: false
     property int savedHour: 0
     property int savedMinute: 0
@@ -30,8 +30,9 @@ PageStackWindow {
 
     MainPage {
         id: mainPage
-        tools: commonTools
+//        tools: commonTools
     }
+/*
 
     ToolBarLayout {
         id: commonTools
@@ -67,7 +68,7 @@ PageStackWindow {
             }
         }
     }
-
+*/
     Loader {
         id: aboutDialog
 
@@ -125,9 +126,5 @@ PageStackWindow {
         onOpenHomepage: {
             appWindow.openUrl( "http://www.iki.fi/z7/tolppaapuri" )
         }
-    }
-
-    Component.onCompleted: {
-        theme.inverted = true
     }
 }
