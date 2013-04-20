@@ -1,9 +1,9 @@
 import QtQuick 1.1
-import com.nokia.meego 1.0
+import Sailfish.Silica 1.0
 
 Page {
     id: page
-    tools: commonTools
+//    tools: commonTools
     property string currentTime: ""
     property string startTime: startTimeString()
     property string timeToStart: timeToStartString()
@@ -104,160 +104,193 @@ Page {
         return tomorrow;
     }
 
-    Timer {
-        id: timeTimer
-        interval: 2000
-        running: !appWindow.appInBackground
-        repeat: true
-        triggeredOnStart: true
-        onTriggered: {
-            page.currentTime = Qt.formatDateTime(new Date(), "h:mm")
+    SilicaFlickable {
+        anchors.fill: parent
+
+        // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
+        PullDownMenu {
+            MenuItem {
+                text: qsTr("About")
+                onClicked: {
+                    aboutDialog.open()
+                }
+            }
+            MenuItem {
+                text: qsTr("Toggle clock type")
+                onClicked: {
+                    if (mainPage.clockType == 1) {
+                        mainPage.clockType = 2
+                    } else
+                    {
+                        mainPage.clockType = 1
+                    }
+                    appWindow.saveClockType(mainPage.clockType)
+                }
+            }
         }
-    }
 
-    Item {
-        id: labelsContainer
-        y: appWindow.landscape ? commonMargin : parent.height / 2
-        width: appWindow.landscape ? parent.width / 2 : parent.width
-        x: appWindow.landscape ? parent.width / 2 : (parent.width - width) / 2
-        height: 130
+        // Tell SilicaFlickable the height of its content.
+        contentHeight: childrenRect.height
+        Item {
+            y: 0
+            x: 0
+            height: 854
+            width: 480
 
-        Label {
-            id: currentTimeHeaderLabel
+        Timer {
+            id: timeTimer
+            interval: 2000
+            running: !appWindow.appInBackground
+            repeat: true
+            triggeredOnStart: true
+            onTriggered: {
+                page.currentTime = Qt.formatDateTime(new Date(), "h:mm")
+            }
+        }
+
+        Item {
+            id: labelsContainer
+            y: appWindow.landscape ? commonMargin : parent.height / 2
+            width: appWindow.landscape ? parent.width / 2 : parent.width
+            x: appWindow.landscape ? parent.width / 2 : (parent.width - width) / 2
+            height: 130
+
+            Label {
+                id: currentTimeHeaderLabel
+                anchors.top: parent.top
+                anchors.topMargin: commonMargin
+                anchors.left: parent.left
+                anchors.leftMargin: commonMargin
+                width: parent.width / 2
+                text: qsTr("Current time:")
+                horizontalAlignment: Text.AlignHCenter
+            }
+
+            Label {
+                id: currentTimeLabel
+                anchors.top: currentTimeHeaderLabel.bottom
+                anchors.topMargin: commonMargin
+                anchors.left: parent.left
+                anchors.leftMargin: commonMargin
+                width: parent.width / 2
+                text: currentTime
+                horizontalAlignment: Text.AlignHCenter
+                font.pixelSize: 28
+            }
+
+            Label {
+                id: hoursToStartHeaderLabel
+                anchors.top: parent.top
+                anchors.topMargin: commonMargin
+                anchors.right: parent.right
+                anchors.rightMargin: commonMargin
+                width: parent.width / 2
+                text: qsTr("Time to start:")
+                horizontalAlignment: Text.AlignHCenter
+            }
+            Label {
+                id: hoursToStartLabel
+                anchors.top: hoursToStartHeaderLabel.bottom
+                anchors.topMargin: commonMargin
+                anchors.right: parent.right
+                anchors.rightMargin: commonMargin
+                width: parent.width / 2
+                text: timeToStart
+                horizontalAlignment: Text.AlignHCenter
+                font.pixelSize: 28
+            }
+
+            Label {
+                id: noteLabel
+                anchors.top: hoursToStartLabel.bottom
+                anchors.topMargin: commonMargin
+                anchors.left: parent.left
+                anchors.leftMargin: commonMargin
+                anchors.right: parent.right
+                anchors.rightMargin: commonMargin
+                text: qsTr("DST change taken into account")
+                horizontalAlignment: Text.AlignHCenter
+                visible: dstChange
+            }
+        }
+
+        Item {
+            id: timeToStartContainer
+            anchors.top: labelsContainer.bottom
+            width: appWindow.landscape ? parent.width / 2 : parent.width
+            x: appWindow.landscape ? parent.width / 2 : (parent.width - width) / 2
+            height: 150
+
+            Label {
+                id: startTimeHeaderLabel
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: parent.top
+                text: qsTr("Start time:")
+                horizontalAlignment: Text.AlignHCenter
+            }
+
+            Label {
+                id: startTimeLabel
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: startTimeHeaderLabel.bottom
+                anchors.topMargin: commonMargin
+                text: startTime
+                font.pixelSize: 32
+                horizontalAlignment: Text.AlignHCenter
+            }
+
+            Slider {
+                id: hoursSlider
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: startTimeLabel.bottom
+                minimumValue: 0
+                maximumValue: 23
+                stepSize: 1
+                width: parent.width
+                onValueChanged: timeToStartString()
+            }
+
+            Slider {
+                id: minutesSlider
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: hoursSlider.bottom
+                minimumValue: 0
+                maximumValue: 59
+                stepSize: 1
+                width: parent.width
+                onValueChanged: timeToStartString()
+            }
+        }
+
+        Item {
             anchors.top: parent.top
-            anchors.topMargin: commonMargin
-            anchors.left: parent.left
-            anchors.leftMargin: commonMargin
-            width: parent.width / 2
-            text: qsTr("Current time:")
-            horizontalAlignment: Text.AlignHCenter
-        }
+            x: appWindow.landscape ? 0 : (parent.width - width) / 2
+            width: appWindow.landscape ? parent.width / 2 : parent.width
+            height: appWindow.landscape ? parent.height : parent.height / 2
 
-        Label {
-            id: currentTimeLabel
-            anchors.top: currentTimeHeaderLabel.bottom
-            anchors.topMargin: commonMargin
-            anchors.left: parent.left
-            anchors.leftMargin: commonMargin
-            width: parent.width / 2
-            text: currentTime
-            horizontalAlignment: Text.AlignHCenter
-            font.pixelSize: 28
-        }
-
-        Label {
-            id: hoursToStartHeaderLabel
-            anchors.top: parent.top
-            anchors.topMargin: commonMargin
-            anchors.right: parent.right
-            anchors.rightMargin: commonMargin
-            width: parent.width / 2
-            text: qsTr("Time to start:")
-            horizontalAlignment: Text.AlignHCenter
-        }
-        Label {
-            id: hoursToStartLabel
-            anchors.top: hoursToStartHeaderLabel.bottom
-            anchors.topMargin: commonMargin
-            anchors.right: parent.right
-            anchors.rightMargin: commonMargin
-            width: parent.width / 2
-            text: timeToStart
-            horizontalAlignment: Text.AlignHCenter
-            font.pixelSize: 28
-        }
-
-        Label {
-            id: noteLabel
-            anchors.top: hoursToStartLabel.bottom
-            anchors.topMargin: commonMargin
-            anchors.left: parent.left
-            anchors.leftMargin: commonMargin
-            anchors.right: parent.right
-            anchors.rightMargin: commonMargin
-            text: qsTr("DST change taken into account")
-            horizontalAlignment: Text.AlignHCenter
-            visible: dstChange
-        }
+            Image {
+                id: clockFrame
+                anchors.centerIn: parent
+                source: clockType == 1 ? "graphics/clock1_frame_white.png" : "graphics/clock2_frame_white.png"
+                smooth: true
+                rotation: clockType == 1 ? 0 : page.degreesWithOffset + 30
+                Behavior on rotation { PropertyAnimation { duration: 400 } }
+            }
+            Image {
+                id: clockKnob
+                anchors.centerIn: parent
+                source: clockType == 1 ? "graphics/clock1_knob_white.png" : "graphics/clock2_knob_white.png"
+                rotation: clockType == 1 ? page.degrees : page.currentTimeDegrees
+                smooth: true
+                Behavior on rotation { PropertyAnimation { duration: 400 } }
+            }
+            Image {
+                id: clockMarker
+                anchors.centerIn: parent
+                source: clockType == 1 ? "" : "graphics/clock2_mark_white.png"
+                smooth: true
+                visible: clockType == 1 ? false : true
+            }
+        }}
     }
-
-    Item {
-        id: timeToStartContainer
-        anchors.top: labelsContainer.bottom
-        width: appWindow.landscape ? parent.width / 2 : parent.width
-        x: appWindow.landscape ? parent.width / 2 : (parent.width - width) / 2
-        height: 150
-
-        Label {
-            id: startTimeHeaderLabel
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: parent.top
-            text: qsTr("Start time:")
-            horizontalAlignment: Text.AlignHCenter
-        }
-
-        Label {
-            id: startTimeLabel
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: startTimeHeaderLabel.bottom
-            anchors.topMargin: commonMargin
-            text: startTime
-            font.pixelSize: 32
-            horizontalAlignment: Text.AlignHCenter
-        }
-
-        Slider {
-            id: hoursSlider
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: startTimeLabel.bottom
-            minimumValue: 0
-            maximumValue: 23
-            stepSize: 1
-            width: parent.width
-            onValueChanged: timeToStartString()
-        }
-
-        Slider {
-            id: minutesSlider
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: hoursSlider.bottom
-            minimumValue: 0
-            maximumValue: 59
-            stepSize: 1
-            width: parent.width
-            onValueChanged: timeToStartString()
-        }
-    }
-
-    Item {
-        anchors.top: parent.top
-        x: appWindow.landscape ? 0 : (parent.width - width) / 2
-        width: appWindow.landscape ? parent.width / 2 : parent.width
-        height: appWindow.landscape ? parent.height : parent.height / 2
-
-        Image {
-            id: clockFrame
-            anchors.centerIn: parent
-            source: clockType == 1 ? "graphics/clock1_frame_white.png" : "graphics/clock2_frame_white.png"
-            smooth: true
-            rotation: clockType == 1 ? 0 : page.degreesWithOffset + 30
-            Behavior on rotation { PropertyAnimation { duration: 400 } }
-        }
-        Image {
-            id: clockKnob
-            anchors.centerIn: parent
-            source: clockType == 1 ? "graphics/clock1_knob_white.png" : "graphics/clock2_knob_white.png"
-            rotation: clockType == 1 ? page.degrees : page.currentTimeDegrees
-            smooth: true
-            Behavior on rotation { PropertyAnimation { duration: 400 } }
-        }
-        Image {
-            id: clockMarker
-            anchors.centerIn: parent
-            source: clockType == 1 ? "" : "graphics/clock2_mark_white.png"
-            smooth: true
-            visible: clockType == 1 ? false : true
-        }
-    }
-
 }
