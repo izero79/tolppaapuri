@@ -16,6 +16,10 @@ QMLWindow::QMLWindow(QWidget *parent) :
     mMinutes(0)
 {
     setResizeMode(QDeclarativeView::SizeRootObjectToView);
+    setAttribute(Qt::WA_OpaquePaintEvent);
+    setAttribute(Qt::WA_NoSystemBackground);
+    viewport()->setAttribute(Qt::WA_OpaquePaintEvent);
+    viewport()->setAttribute(Qt::WA_NoSystemBackground);
     mRootContext = rootContext();
 
 #if defined(Q_OS_SYMBIAN)
