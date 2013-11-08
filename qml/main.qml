@@ -1,4 +1,4 @@
-import QtQuick 1.1
+import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 ApplicationWindow {
@@ -24,51 +24,15 @@ ApplicationWindow {
     onSavedTypeChanged: mainPage.setInitClockType(savedMinute)
 
     function aboutToQuit() {
-        appWindow.saveTime(mainPage.setHour, mainPage.setMinute)
-        appWindow.quit()
+        console.log("about to quit")
+        settings.savedHour = mainPage.setHour
+        settings.savedMinute = mainPage.setMinute
     }
 
     MainPage {
         id: mainPage
-//        tools: commonTools
-    }
-/*
-
-    ToolBarLayout {
-        id: commonTools
-        visible: true
-        ToolIcon {
-            platformIconId: "toolbar-view-menu"
-            anchors.right: (parent === undefined) ? undefined : parent.right
-            onClicked: (myMenu.status === DialogStatus.Closed) ? myMenu.open() : myMenu.close()
-        }
     }
 
-    Menu {
-        id: myMenu
-        visualParent: pageStack
-        MenuLayout {
-            MenuItem {
-                text: qsTr("Toggle clock type")
-                onClicked: {
-                    if (mainPage.clockType == 1) {
-                        mainPage.clockType = 2
-                    } else
-                    {
-                        mainPage.clockType = 1
-                    }
-                    appWindow.saveClockType(mainPage.clockType)
-                }
-            }
-            MenuItem {
-                text: qsTr("About")
-                onClicked: {
-                    aboutDialog.open()
-                }
-            }
-        }
-    }
-*/
     Loader {
         id: aboutDialog
 
@@ -77,9 +41,7 @@ ApplicationWindow {
             source = Qt.resolvedUrl( "AboutDialog.qml" )
             if( item != null )
             {
-                item.screenX = -x
-                item.screenY = -y
-                item.open()
+                pageStack.push(item)
             }
         }
 
@@ -89,7 +51,7 @@ ApplicationWindow {
             {
                 item.close()
             }
-            source = ""
+            //source = ""
         }
 
         function isVisible()
@@ -106,24 +68,15 @@ ApplicationWindow {
         height: appWindow.inPortrait ? parent.height / 6 * 2 : parent.height / 5 * 3
         source: ""
         z: 100
-        onYChanged: {
-            if( item != null )
-            {
-                item.screenX = -x
-                item.screenY = -y
-            }
-        }
     }
 
     Connections {
         target: aboutDialog.item
-        onButton1Clicked: {
-            aboutDialog.close()
-        }
         onCanceled: {
             aboutDialog.close()
         }
         onOpenHomepage: {
+            console.log("open homepage")
             appWindow.openUrl( "http://www.iki.fi/z7/tolppaapuri" )
         }
     }

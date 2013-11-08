@@ -1,4 +1,5 @@
 #include <QSettings>
+#include <QDebug>
 
 #include "settings.h"
 
@@ -7,33 +8,38 @@ Settings::Settings(QObject *parent) :
 {
 }
 
-QPair<int,int> Settings::savedTime()
-{
+int Settings::savedHour() const {
     QSettings settings("TeSi", "tolppaapuri");
-    int hour = settings.value("savedHour", 0).toInt();
-    int minute = settings.value("savedMinute", 0).toInt();
-    QPair<int,int> time;
-    time.first = hour;
-    time.second = minute;
-    return time;
+    int type = settings.value("savedHour", 0).toInt();
+    return type;
 }
 
-void Settings::saveTime(int hours, int minutes)
-{
+int Settings::savedMinute() const {
     QSettings settings("TeSi", "tolppaapuri");
-    settings.setValue("savedHour", hours);
-    settings.setValue("savedMinute", minutes);
+    int type = settings.value("savedMinute", 0).toInt();
+    return type;
 }
 
-int Settings::savedType()
-{
+int Settings::clockType() const {
     QSettings settings("TeSi", "tolppaapuri");
     int type = settings.value("savedType", 1).toInt();
     return type;
 }
 
-void Settings::saveType(int type)
-{
+void Settings::setHour(int hour) {
+    qDebug() << Q_FUNC_INFO;
+    QSettings settings("TeSi", "tolppaapuri");
+    settings.setValue("savedHour", hour);
+}
+
+void Settings::setMinute(int minute) {
+    qDebug() << Q_FUNC_INFO;
+    QSettings settings("TeSi", "tolppaapuri");
+    settings.setValue("savedMinute", minute);
+}
+
+void Settings::setClockType(int type) {
+    qDebug() << Q_FUNC_INFO;
     QSettings settings("TeSi", "tolppaapuri");
     settings.setValue("savedType", type);
 }

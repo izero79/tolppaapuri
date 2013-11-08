@@ -1,4 +1,4 @@
-import QtQuick 1.1
+import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 Page {
@@ -20,6 +20,13 @@ Page {
     property int offsetDiff: 0
 
     onCurrentTimeChanged: timeToStartString()
+
+    Component.onCompleted: {
+        console.log("start, time: " + settings.savedMinute)
+        setInitHour(settings.savedHour);
+        setInitMinute(settings.savedMinute);
+        setInitClockType(settings.clockType);
+    }
 
     function setInitHour(savedHour) {
         hoursSlider.value = savedHour
@@ -124,7 +131,7 @@ Page {
                     {
                         mainPage.clockType = 1
                     }
-                    appWindow.saveClockType(mainPage.clockType)
+                    settings.clockType = mainPage.clockType
                 }
             }
         }
@@ -134,8 +141,8 @@ Page {
         Item {
             y: 0
             x: 0
-            height: 854
-            width: 480
+            height: appWindow.height
+            width: appWindow.width
 
         Timer {
             id: timeTimer

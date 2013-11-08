@@ -1,17 +1,35 @@
-#include <QTimer>
 #include <QCoreApplication>
+#include <QQuickView>
+#include <QQuickItem>
+#include <QQmlContext>
 
 #include "applicationcontroller.h"
-#include "qmlwindow.h"
+#include "settings.h"
 
-ApplicationController::ApplicationController(QObject *parent) :
-    QObject(parent),
-    mQMLWin(0)
+ApplicationController::ApplicationController(QQuickView *view) :
+    mView(view),
+    mSettings(new Settings(this))
 {
-    initGUI();
-    QTimer::singleShot(0, this, SLOT(initObjects()));
-}
+    QString majorVersion;
+    majorVersion.setNum( MAJORVERSION );
+    QString minorVersion;
+    minorVersion.setNum( MINORVERSION );
+    QString patchVersion;
+    patchVersion.setNum( PATCHVERSION );
 
+    QString appName("Tolppa-apuri");
+    mView->rootContext()->setContextProperty( "settings", mSettings );
+    mView->setSource(QUrl("qrc:/qml/main.qml"));
+    mView->show();
+
+    QQuickItem *obj = mView->rootObject();
+
+    QString version( majorVersion + "." + minorVersion + "." + patchVersion );
+    obj->setProperty( "versionString", version );
+    obj->setProperty( "appName", appName );
+
+}
+/*
 void ApplicationController::initGUI()
 {
     mQMLWin = new QMLWindow();
@@ -23,19 +41,22 @@ void ApplicationController::initObjects()
 {
     mQMLWin->init();
 }
-
+*/
 ApplicationController::~ApplicationController()
 {
-    mQMLWin->setSavedTime();
-    mQMLWin->deleteLater();
-    mQMLWin = 0;
+    QMetaObject::invokeMethod(mView->rootObject(), "aboutToQuit");
+
+//    mView->rootContext()->
+//    mQMLWin->setSavedTime();
+//    mQMLWin->deleteLater();
+//    mQMLWin = 0;
 }
 
 void ApplicationController::quit()
 {
     qApp->quit();
 }
-
+/*
 bool ApplicationController::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type() == QEvent::ApplicationDeactivate) {
@@ -58,3 +79,4 @@ bool ApplicationController::eventFilter(QObject *obj, QEvent *event)
     }
     return QObject::eventFilter(obj, event); // Unhandled events are passed to the base class
 }
+*/

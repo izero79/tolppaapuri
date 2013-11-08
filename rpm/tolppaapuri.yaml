@@ -1,0 +1,28 @@
+Name: tolppaapuri
+Summary: Electric outlet timer utility
+Version: 1.0
+Release: 1
+Group: Qt/Qt
+License: LICENSE
+Sources:
+- '%{name}-%{version}.tar.bz2'
+Description: |-
+  Small utility for setting timer in electric outlet
+Configure: none
+Builder: qtc5
+PkgConfigBR:
+- sailfishapp
+- Qt5Quick
+- Qt5Qml
+- Qt5Core
+Requires:
+- sailfishsilica-qt5
+Files:
+- /usr/share/icons/hicolor/90x90/apps
+- /usr/share/applications
+- /usr/share/tolppaapuri
+- /usr/bin
+- '%{_datadir}/icons/hicolor/90x90/apps/%{name}.png'
+- '%{_datadir}/applications/%{name}.desktop'
+- '%{_bindir}'
+PkgBR: []

@@ -3,26 +3,28 @@
 
 #include <QObject>
 
-class QMLWindow;
+class QQuickView;
+class Settings;
 
 class ApplicationController : public QObject
 {
     Q_OBJECT
 public:
-    explicit ApplicationController(QObject *parent = 0);
+    explicit ApplicationController(QQuickView *view);
     ~ApplicationController();
 
-    bool eventFilter(QObject *obj, QEvent *event);
+//    bool eventFilter(QObject *obj, QEvent *event);
 
 public slots:
     void quit();
-
+/*
 private slots:
     void initGUI();
     void initObjects();
-
+*/
 private:
-    QMLWindow *mQMLWin;
+    QQuickView *mView;
+    Settings *mSettings;
 
 };
 
