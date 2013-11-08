@@ -5,8 +5,7 @@ Dialog{
     id: root
 
     property string text: qsTr( "version " ) + versionString + "\nTero Siironen" + "\nizero79@gmail.com"
-    property string iconFileName: "graphics/tolppaapuri96.png"
-    property int iconSize: 96
+    property string iconFileName: "graphics/tolppaapuri.png"
 
     signal openHomepage()
 
@@ -17,7 +16,7 @@ Dialog{
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: Theme.itemSizeLarge
-        text: "Tolppa-apuri"
+        text: appWindow.appName
         font.family: Theme.fontFamilyHeading
         font.pixelSize: Theme.fontSizeLarge
     }
@@ -33,13 +32,12 @@ Dialog{
 
         Image {
             id: icon
-            visible: iconFileName != ""
-            source: iconFileName
+            source: "graphics/tolppaapuri.png"
             anchors.left: parent.left
             anchors.margins: Theme.paddingMedium
             anchors.top: parent.top
-            height: iconSize
-            width: iconSize
+            height: 90
+            width: 90
         }
 
         Label {

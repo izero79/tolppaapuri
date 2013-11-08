@@ -6,9 +6,8 @@ DEFINES +=DEBUGONLYTOFILE
 
 VERSION = 1.0.0
 
-DEFINES += MAJORVERSION=1
-DEFINES += MINORVERSION=0
-DEFINES += PATCHVERSION=0
+VERSTR = '\\"$${VERSION}\\"'
+DEFINES += VER=\"$${VERSTR}\"
 
 unix|macx|win32{
     folder_01.source = qml
@@ -19,10 +18,14 @@ unix|macx|win32{
 
 DEPLOYMENT.display_name = "Tolppa-apuri"
 
+APPNAMESTR = '\\"$${DEPLOYMENT.display_name}\\"'
+DEFINES += APPNAME=\"$${APPNAMESTR}\"
+
 OTHER_FILES += qml/*.qml \
     rpm/tolppaapuri.yaml \
     rpm/tolppaapuri.spec \
-    tolppaapuri.desktop
+    tolppaapuri.desktop \
+    qml/SimpleCover.qml
 
 
 

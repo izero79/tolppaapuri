@@ -3,7 +3,6 @@ import Sailfish.Silica 1.0
 
 Page {
     id: page
-//    tools: commonTools
     property string currentTime: ""
     property string startTime: startTimeString()
     property string timeToStart: timeToStartString()
@@ -12,7 +11,6 @@ Page {
     property int degrees: 360 - parseInt(minutesToStartTime / 4)
     property int degreesWithOffset: 360 - parseInt((minutesToStartTime-offsetDiff) / 4)
     property int currentTimeDegrees: - (360 - parseInt((currentTimeInMinutes+offsetDiff) / 4))
-    property int commonMargin: 8
     property int clockType: 1
     property int setHour: appWindow.savedHour
     property int setMinute: appWindow.savedMinute
@@ -22,7 +20,6 @@ Page {
     onCurrentTimeChanged: timeToStartString()
 
     Component.onCompleted: {
-        console.log("start, time: " + settings.savedMinute)
         setInitHour(settings.savedHour);
         setInitMinute(settings.savedMinute);
         setInitClockType(settings.clockType);
@@ -43,7 +40,6 @@ Page {
     function startTimeString() {
         page.setHour = hoursSlider.value
         page.setMinute = minutesSlider.value
-        appWindow.saveTime(hoursSlider.value, minutesSlider.value)
         if (minutesSlider.value < 10) {
             return hoursSlider.value + ":0" + minutesSlider.value
         } else {
@@ -147,7 +143,7 @@ Page {
         Timer {
             id: timeTimer
             interval: 2000
-            running: !appWindow.appInBackground
+            running: appWindow.applicationActive
             repeat: true
             triggeredOnStart: true
             onTriggered: {
@@ -157,17 +153,17 @@ Page {
 
         Item {
             id: labelsContainer
-            y: appWindow.landscape ? commonMargin : parent.height / 2
-            width: appWindow.landscape ? parent.width / 2 : parent.width
-            x: appWindow.landscape ? parent.width / 2 : (parent.width - width) / 2
+            y: page.isLandscape ? Theme.paddingMedium : parent.height / 2
+            width: page.isLandscape ? parent.width / 2 : parent.width
+            x: page.isLandscape ? parent.width / 2 : (parent.width - width) / 2
             height: 130
 
             Label {
                 id: currentTimeHeaderLabel
                 anchors.top: parent.top
-                anchors.topMargin: commonMargin
+                anchors.topMargin: Theme.paddingMedium
                 anchors.left: parent.left
-                anchors.leftMargin: commonMargin
+                anchors.leftMargin: Theme.paddingMedium
                 width: parent.width / 2
                 text: qsTr("Current time:")
                 horizontalAlignment: Text.AlignHCenter
@@ -176,9 +172,9 @@ Page {
             Label {
                 id: currentTimeLabel
                 anchors.top: currentTimeHeaderLabel.bottom
-                anchors.topMargin: commonMargin
+                anchors.topMargin: Theme.paddingMedium
                 anchors.left: parent.left
-                anchors.leftMargin: commonMargin
+                anchors.leftMargin: Theme.paddingMedium
                 width: parent.width / 2
                 text: currentTime
                 horizontalAlignment: Text.AlignHCenter
@@ -188,9 +184,9 @@ Page {
             Label {
                 id: hoursToStartHeaderLabel
                 anchors.top: parent.top
-                anchors.topMargin: commonMargin
+                anchors.topMargin: Theme.paddingMedium
                 anchors.right: parent.right
-                anchors.rightMargin: commonMargin
+                anchors.rightMargin: Theme.paddingMedium
                 width: parent.width / 2
                 text: qsTr("Time to start:")
                 horizontalAlignment: Text.AlignHCenter
@@ -198,9 +194,9 @@ Page {
             Label {
                 id: hoursToStartLabel
                 anchors.top: hoursToStartHeaderLabel.bottom
-                anchors.topMargin: commonMargin
+                anchors.topMargin: Theme.paddingMedium
                 anchors.right: parent.right
-                anchors.rightMargin: commonMargin
+                anchors.rightMargin: Theme.paddingMedium
                 width: parent.width / 2
                 text: timeToStart
                 horizontalAlignment: Text.AlignHCenter
@@ -210,11 +206,11 @@ Page {
             Label {
                 id: noteLabel
                 anchors.top: hoursToStartLabel.bottom
-                anchors.topMargin: commonMargin
+                anchors.topMargin: Theme.paddingMedium
                 anchors.left: parent.left
-                anchors.leftMargin: commonMargin
+                anchors.leftMargin: Theme.paddingMedium
                 anchors.right: parent.right
-                anchors.rightMargin: commonMargin
+                anchors.rightMargin: Theme.paddingMedium
                 text: qsTr("DST change taken into account")
                 horizontalAlignment: Text.AlignHCenter
                 visible: dstChange
@@ -224,8 +220,8 @@ Page {
         Item {
             id: timeToStartContainer
             anchors.top: labelsContainer.bottom
-            width: appWindow.landscape ? parent.width / 2 : parent.width
-            x: appWindow.landscape ? parent.width / 2 : (parent.width - width) / 2
+            width: page.isLandscape ? parent.width / 2 : parent.width
+            x: page.isLandscape ? parent.width / 2 : (parent.width - width) / 2
             height: 150
 
             Label {
@@ -240,7 +236,7 @@ Page {
                 id: startTimeLabel
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: startTimeHeaderLabel.bottom
-                anchors.topMargin: commonMargin
+                anchors.topMargin: Theme.paddingMedium
                 text: startTime
                 font.pixelSize: 32
                 horizontalAlignment: Text.AlignHCenter
@@ -271,9 +267,9 @@ Page {
 
         Item {
             anchors.top: parent.top
-            x: appWindow.landscape ? 0 : (parent.width - width) / 2
-            width: appWindow.landscape ? parent.width / 2 : parent.width
-            height: appWindow.landscape ? parent.height : parent.height / 2
+            x: page.isLandscape ? 0 : (parent.width - width) / 2
+            width: page.isLandscape ? parent.width / 2 : parent.width
+            height: page.isLandscape ? parent.height : parent.height / 2
 
             Image {
                 id: clockFrame

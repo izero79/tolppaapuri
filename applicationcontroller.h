@@ -13,15 +13,10 @@ public:
     explicit ApplicationController(QQuickView *view);
     ~ApplicationController();
 
-//    bool eventFilter(QObject *obj, QEvent *event);
-
 public slots:
     void quit();
-/*
-private slots:
-    void initGUI();
-    void initObjects();
-*/
+    void openBrowser( const QString &url );
+
 private:
     QQuickView *mView;
     Settings *mSettings;

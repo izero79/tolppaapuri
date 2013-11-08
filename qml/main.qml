@@ -8,14 +8,11 @@ ApplicationWindow {
 
 
     property string versionString: "0.0.0"
-    property bool landscape: false
-    property bool appInBackground: false
+    property string appName: "----"
     property int savedHour: 0
     property int savedMinute: 0
     property int savedType: 1
 
-    signal saveTime(int hour, int minute)
-    signal saveClockType(int type)
     signal quit()
     signal openUrl(string url)
 
@@ -80,4 +77,6 @@ ApplicationWindow {
             appWindow.openUrl( "http://www.iki.fi/z7/tolppaapuri" )
         }
     }
+
+    cover: Qt.resolvedUrl("SimpleCover.qml")
 }

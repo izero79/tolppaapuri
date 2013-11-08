@@ -6,8 +6,9 @@
         <file>qml/graphics/clock2_frame_white.png</file>
         <file>qml/graphics/clock2_knob_white.png</file>
         <file>qml/graphics/clock2_mark_white.png</file>
-        <file>qml/graphics/tolppaapuri96.png</file>
         <file>qml/graphics/clock1_knob_white.png</file>
         <file>qml/graphics/clock1_frame_white.png</file>
+        <file>qml/graphics/tolppaapuri.png</file>
+        <file>qml/SimpleCover.qml</file>
     </qresource>
 </RCC>
