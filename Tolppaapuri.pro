@@ -9,15 +9,7 @@ VERSION = 1.0.0
 VERSTR = '\\"$${VERSION}\\"'
 DEFINES += VER=\"$${VERSTR}\"
 
-unix|macx|win32{
-    folder_01.source = qml
-    folder_01.target = qml
-    DEPLOYMENTFOLDERS += folder_01
-}
-
-
 DEPLOYMENT.display_name = "Tolppa-apuri"
-
 APPNAMESTR = '\\"$${DEPLOYMENT.display_name}\\"'
 DEFINES += APPNAME=\"$${APPNAMESTR}\"
 
@@ -27,8 +19,6 @@ OTHER_FILES += qml/*.qml \
     tolppaapuri.desktop \
     qml/SimpleCover.qml
 
-
-
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += tolppaapuri.cpp \
     applicationcontroller.cpp \
@@ -36,7 +26,6 @@ SOURCES += tolppaapuri.cpp \
 
 HEADERS += applicationcontroller.h \
     settings.h
-
 
 RESOURCES += \
     translations.qrc \

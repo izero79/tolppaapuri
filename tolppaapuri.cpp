@@ -1,7 +1,7 @@
+#include <QDebug>
 #include <QGuiApplication>
-#include <QQuickView>
-#include <QtQml>
 #include <QLocale>
+#include <QQuickView>
 #include <QTranslator>
 #include "sailfishapp.h"
 
@@ -15,16 +15,16 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     ApplicationController cont(&view);
 
     QString locale = QLocale::system().name();
-    qDebug() << "system locale name" << locale;
+    qDebug() << "System locale name" << locale;
     QTranslator translator;
 
     bool ok = translator.load(QString(":/tolppa-apuri_") + locale);
-    qDebug() << "translator load ok" << ok;
+    qDebug() << "Translator loaded ok" << ok;
     if( !ok ) {
         ok = translator.load(QString(":/tolppa-apuri_en_US"));
     }
     ok = app->installTranslator(&translator);
-    qDebug() << "translator install ok" << ok;
+    qDebug() << "Translator installed ok" << ok;
 
     return app->exec();
 }

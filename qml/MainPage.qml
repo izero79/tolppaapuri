@@ -110,7 +110,6 @@ Page {
     SilicaFlickable {
         anchors.fill: parent
 
-        // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
         PullDownMenu {
             MenuItem {
                 text: qsTr("About")
@@ -121,18 +120,17 @@ Page {
             MenuItem {
                 text: qsTr("Toggle clock type")
                 onClicked: {
-                    if (mainPage.clockType == 1) {
-                        mainPage.clockType = 2
+                    if (page.clockType == 1) {
+                        page.clockType = 2
                     } else
                     {
-                        mainPage.clockType = 1
+                        page.clockType = 1
                     }
-                    settings.clockType = mainPage.clockType
+                    settings.clockType = page.clockType
                 }
             }
         }
 
-        // Tell SilicaFlickable the height of its content.
         contentHeight: childrenRect.height
         Item {
             y: 0
@@ -140,160 +138,161 @@ Page {
             height: appWindow.height
             width: appWindow.width
 
-        Timer {
-            id: timeTimer
-            interval: 2000
-            running: appWindow.applicationActive
-            repeat: true
-            triggeredOnStart: true
-            onTriggered: {
-                page.currentTime = Qt.formatDateTime(new Date(), "h:mm")
+            Timer {
+                id: timeTimer
+                interval: 2000
+                running: appWindow.applicationActive
+                repeat: true
+                triggeredOnStart: true
+                onTriggered: {
+                    page.currentTime = Qt.formatDateTime(new Date(), "h:mm")
+                }
+            }
+
+            Item {
+                id: labelsContainer
+                y: page.isLandscape ? Theme.paddingMedium : parent.height / 2
+                width: page.isLandscape ? parent.width / 2 : parent.width
+                x: page.isLandscape ? parent.width / 2 : (parent.width - width) / 2
+                height: 130
+
+                Label {
+                    id: currentTimeHeaderLabel
+                    anchors.top: parent.top
+                    anchors.topMargin: Theme.paddingMedium
+                    anchors.left: parent.left
+                    anchors.leftMargin: Theme.paddingMedium
+                    width: parent.width / 2
+                    text: qsTr("Current time:")
+                    horizontalAlignment: Text.AlignHCenter
+                }
+
+                Label {
+                    id: currentTimeLabel
+                    anchors.top: currentTimeHeaderLabel.bottom
+                    anchors.topMargin: Theme.paddingMedium
+                    anchors.left: parent.left
+                    anchors.leftMargin: Theme.paddingMedium
+                    width: parent.width / 2
+                    text: currentTime
+                    horizontalAlignment: Text.AlignHCenter
+                    font.pixelSize: 28
+                }
+
+                Label {
+                    id: hoursToStartHeaderLabel
+                    anchors.top: parent.top
+                    anchors.topMargin: Theme.paddingMedium
+                    anchors.right: parent.right
+                    anchors.rightMargin: Theme.paddingMedium
+                    width: parent.width / 2
+                    text: qsTr("Time to start:")
+                    horizontalAlignment: Text.AlignHCenter
+                }
+                Label {
+                    id: hoursToStartLabel
+                    anchors.top: hoursToStartHeaderLabel.bottom
+                    anchors.topMargin: Theme.paddingMedium
+                    anchors.right: parent.right
+                    anchors.rightMargin: Theme.paddingMedium
+                    width: parent.width / 2
+                    text: timeToStart
+                    horizontalAlignment: Text.AlignHCenter
+                    font.pixelSize: 28
+                }
+
+                Label {
+                    id: noteLabel
+                    anchors.top: hoursToStartLabel.bottom
+                    anchors.topMargin: Theme.paddingMedium
+                    anchors.left: parent.left
+                    anchors.leftMargin: Theme.paddingMedium
+                    anchors.right: parent.right
+                    anchors.rightMargin: Theme.paddingMedium
+                    text: qsTr("DST change taken into account")
+                    horizontalAlignment: Text.AlignHCenter
+                    visible: dstChange
+                }
+            }
+
+            Item {
+                id: timeToStartContainer
+                anchors.top: labelsContainer.bottom
+                width: page.isLandscape ? parent.width / 2 : parent.width
+                x: page.isLandscape ? parent.width / 2 : (parent.width - width) / 2
+                height: 150
+
+                Label {
+                    id: startTimeHeaderLabel
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.top: parent.top
+                    text: qsTr("Start time:")
+                    horizontalAlignment: Text.AlignHCenter
+                }
+
+                Label {
+                    id: startTimeLabel
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.top: startTimeHeaderLabel.bottom
+                    anchors.topMargin: Theme.paddingMedium
+                    text: startTime
+                    font.pixelSize: 32
+                    horizontalAlignment: Text.AlignHCenter
+                }
+
+                Slider {
+                    id: hoursSlider
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.top: startTimeLabel.bottom
+                    minimumValue: 0
+                    maximumValue: 23
+                    stepSize: 1
+                    width: parent.width
+                    onValueChanged: timeToStartString()
+                }
+
+                Slider {
+                    id: minutesSlider
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.top: hoursSlider.bottom
+                    minimumValue: 0
+                    maximumValue: 59
+                    stepSize: 1
+                    width: parent.width
+                    onValueChanged: timeToStartString()
+                }
+            }
+
+            Item {
+                anchors.top: parent.top
+                x: page.isLandscape ? 0 : (parent.width - width) / 2
+                width: page.isLandscape ? parent.width / 2 : parent.width
+                height: page.isLandscape ? parent.height : parent.height / 2
+
+                Image {
+                    id: clockFrame
+                    anchors.centerIn: parent
+                    source: clockType == 1 ? "graphics/clock1_frame_white.png" : "graphics/clock2_frame_white.png"
+                    smooth: true
+                    rotation: clockType == 1 ? 0 : page.degreesWithOffset + 30
+                    Behavior on rotation { PropertyAnimation { duration: 400 } }
+                }
+                Image {
+                    id: clockKnob
+                    anchors.centerIn: parent
+                    source: clockType == 1 ? "graphics/clock1_knob_white.png" : "graphics/clock2_knob_white.png"
+                    rotation: clockType == 1 ? page.degrees : page.currentTimeDegrees
+                    smooth: true
+                    Behavior on rotation { PropertyAnimation { duration: 400 } }
+                }
+                Image {
+                    id: clockMarker
+                    anchors.centerIn: parent
+                    source: clockType == 1 ? "" : "graphics/clock2_mark_white.png"
+                    smooth: true
+                    visible: clockType == 1 ? false : true
+                }
             }
         }
-
-        Item {
-            id: labelsContainer
-            y: page.isLandscape ? Theme.paddingMedium : parent.height / 2
-            width: page.isLandscape ? parent.width / 2 : parent.width
-            x: page.isLandscape ? parent.width / 2 : (parent.width - width) / 2
-            height: 130
-
-            Label {
-                id: currentTimeHeaderLabel
-                anchors.top: parent.top
-                anchors.topMargin: Theme.paddingMedium
-                anchors.left: parent.left
-                anchors.leftMargin: Theme.paddingMedium
-                width: parent.width / 2
-                text: qsTr("Current time:")
-                horizontalAlignment: Text.AlignHCenter
-            }
-
-            Label {
-                id: currentTimeLabel
-                anchors.top: currentTimeHeaderLabel.bottom
-                anchors.topMargin: Theme.paddingMedium
-                anchors.left: parent.left
-                anchors.leftMargin: Theme.paddingMedium
-                width: parent.width / 2
-                text: currentTime
-                horizontalAlignment: Text.AlignHCenter
-                font.pixelSize: 28
-            }
-
-            Label {
-                id: hoursToStartHeaderLabel
-                anchors.top: parent.top
-                anchors.topMargin: Theme.paddingMedium
-                anchors.right: parent.right
-                anchors.rightMargin: Theme.paddingMedium
-                width: parent.width / 2
-                text: qsTr("Time to start:")
-                horizontalAlignment: Text.AlignHCenter
-            }
-            Label {
-                id: hoursToStartLabel
-                anchors.top: hoursToStartHeaderLabel.bottom
-                anchors.topMargin: Theme.paddingMedium
-                anchors.right: parent.right
-                anchors.rightMargin: Theme.paddingMedium
-                width: parent.width / 2
-                text: timeToStart
-                horizontalAlignment: Text.AlignHCenter
-                font.pixelSize: 28
-            }
-
-            Label {
-                id: noteLabel
-                anchors.top: hoursToStartLabel.bottom
-                anchors.topMargin: Theme.paddingMedium
-                anchors.left: parent.left
-                anchors.leftMargin: Theme.paddingMedium
-                anchors.right: parent.right
-                anchors.rightMargin: Theme.paddingMedium
-                text: qsTr("DST change taken into account")
-                horizontalAlignment: Text.AlignHCenter
-                visible: dstChange
-            }
-        }
-
-        Item {
-            id: timeToStartContainer
-            anchors.top: labelsContainer.bottom
-            width: page.isLandscape ? parent.width / 2 : parent.width
-            x: page.isLandscape ? parent.width / 2 : (parent.width - width) / 2
-            height: 150
-
-            Label {
-                id: startTimeHeaderLabel
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: parent.top
-                text: qsTr("Start time:")
-                horizontalAlignment: Text.AlignHCenter
-            }
-
-            Label {
-                id: startTimeLabel
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: startTimeHeaderLabel.bottom
-                anchors.topMargin: Theme.paddingMedium
-                text: startTime
-                font.pixelSize: 32
-                horizontalAlignment: Text.AlignHCenter
-            }
-
-            Slider {
-                id: hoursSlider
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: startTimeLabel.bottom
-                minimumValue: 0
-                maximumValue: 23
-                stepSize: 1
-                width: parent.width
-                onValueChanged: timeToStartString()
-            }
-
-            Slider {
-                id: minutesSlider
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: hoursSlider.bottom
-                minimumValue: 0
-                maximumValue: 59
-                stepSize: 1
-                width: parent.width
-                onValueChanged: timeToStartString()
-            }
-        }
-
-        Item {
-            anchors.top: parent.top
-            x: page.isLandscape ? 0 : (parent.width - width) / 2
-            width: page.isLandscape ? parent.width / 2 : parent.width
-            height: page.isLandscape ? parent.height : parent.height / 2
-
-            Image {
-                id: clockFrame
-                anchors.centerIn: parent
-                source: clockType == 1 ? "graphics/clock1_frame_white.png" : "graphics/clock2_frame_white.png"
-                smooth: true
-                rotation: clockType == 1 ? 0 : page.degreesWithOffset + 30
-                Behavior on rotation { PropertyAnimation { duration: 400 } }
-            }
-            Image {
-                id: clockKnob
-                anchors.centerIn: parent
-                source: clockType == 1 ? "graphics/clock1_knob_white.png" : "graphics/clock2_knob_white.png"
-                rotation: clockType == 1 ? page.degrees : page.currentTimeDegrees
-                smooth: true
-                Behavior on rotation { PropertyAnimation { duration: 400 } }
-            }
-            Image {
-                id: clockMarker
-                anchors.centerIn: parent
-                source: clockType == 1 ? "" : "graphics/clock2_mark_white.png"
-                smooth: true
-                visible: clockType == 1 ? false : true
-            }
-        }}
     }
 }

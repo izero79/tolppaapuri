@@ -13,8 +13,7 @@ public:
     explicit ApplicationController(QQuickView *view);
     ~ApplicationController();
 
-public slots:
-    void quit();
+private slots:
     void openBrowser( const QString &url );
 
 private:

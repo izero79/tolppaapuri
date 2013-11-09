@@ -7,19 +7,19 @@ ApplicationWindow {
     initialPage: mainPage
 
 
-    property string versionString: "0.0.0"
-    property string appName: "----"
+    property string versionString: ""
+    property string appName: ""
+    /*
     property int savedHour: 0
     property int savedMinute: 0
     property int savedType: 1
-
-    signal quit()
+*/
     signal openUrl(string url)
-
+/*
     onSavedHourChanged: mainPage.setInitHour(savedHour)
     onSavedMinuteChanged: mainPage.setInitMinute(savedMinute)
     onSavedTypeChanged: mainPage.setInitClockType(savedMinute)
-
+*/
     function aboutToQuit() {
         console.log("about to quit")
         settings.savedHour = mainPage.setHour
@@ -64,7 +64,6 @@ ApplicationWindow {
         width: appWindow.inPortrait ? parent.width / 3 * 2: parent.width / 5 * 2
         height: appWindow.inPortrait ? parent.height / 6 * 2 : parent.height / 5 * 3
         source: ""
-        z: 100
     }
 
     Connections {

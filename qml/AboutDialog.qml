@@ -9,8 +9,6 @@ Dialog{
 
     signal openHomepage()
 
-    focus: true
-
     Label {
         id: dialogHeader
         anchors.horizontalCenter: parent.horizontalCenter
@@ -28,7 +26,6 @@ Dialog{
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.margins: Theme.paddingLarge
-        focus: true
 
         Image {
             id: icon
