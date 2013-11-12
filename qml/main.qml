@@ -9,17 +9,9 @@ ApplicationWindow {
 
     property string versionString: ""
     property string appName: ""
-    /*
-    property int savedHour: 0
-    property int savedMinute: 0
-    property int savedType: 1
-*/
+
     signal openUrl(string url)
-/*
-    onSavedHourChanged: mainPage.setInitHour(savedHour)
-    onSavedMinuteChanged: mainPage.setInitMinute(savedMinute)
-    onSavedTypeChanged: mainPage.setInitClockType(savedMinute)
-*/
+
     function aboutToQuit() {
         console.log("about to quit")
         settings.savedHour = mainPage.setHour
