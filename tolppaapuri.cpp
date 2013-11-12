@@ -10,9 +10,6 @@
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
-    QQuickView view(SailfishApp::createView());
-
-    ApplicationController cont(&view);
 
     QString locale = QLocale::system().name();
     qDebug() << "System locale name" << locale;
@@ -25,6 +22,10 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     }
     ok = app->installTranslator(&translator);
     qDebug() << "Translator installed ok" << ok;
+
+    QQuickView view(SailfishApp::createView());
+
+    ApplicationController cont(&view);
 
     return app->exec();
 }
