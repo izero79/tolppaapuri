@@ -33,8 +33,8 @@ Dialog{
             anchors.left: parent.left
             anchors.margins: Theme.paddingMedium
             anchors.top: parent.top
-            height: 90
-            width: 90
+            height: 86
+            width: 86
         }
 
         Label {

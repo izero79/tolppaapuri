@@ -4,7 +4,7 @@
 *.deb
 *.sis
 Makefile
-tolppaapuri
+fi.iki.z7.tolppaapuri
 debian/.qtcreator
 moc/
 obj/
@@ -16,4 +16,5 @@ rcc/
 bld.inf
 *.mk
 .make.cache
-
+*.list
+RPMS/

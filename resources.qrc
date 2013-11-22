@@ -1,14 +1,14 @@
 <RCC>
     <qresource prefix="/">
-        <file>qml/AboutDialog.qml</file>
-        <file>qml/main.qml</file>
-        <file>qml/MainPage.qml</file>
-        <file>qml/graphics/clock2_frame_white.png</file>
-        <file>qml/graphics/clock2_knob_white.png</file>
-        <file>qml/graphics/clock2_mark_white.png</file>
-        <file>qml/graphics/clock1_knob_white.png</file>
-        <file>qml/graphics/clock1_frame_white.png</file>
-        <file>qml/graphics/tolppaapuri.png</file>
-        <file>qml/SimpleCover.qml</file>
+        <file>aqml/AboutDialog.qml</file>
+        <file>aqml/main.qml</file>
+        <file>aqml/MainPage.qml</file>
+        <file>aqml/SimpleCover.qml</file>
+        <file>aqml/graphics/clock1_frame_white.png</file>
+        <file>aqml/graphics/clock1_knob_white.png</file>
+        <file>aqml/graphics/clock2_frame_white.png</file>
+        <file>aqml/graphics/clock2_knob_white.png</file>
+        <file>aqml/graphics/clock2_mark_white.png</file>
+        <file>aqml/graphics/tolppaapuri.png</file>
     </qresource>
 </RCC>
