@@ -13,17 +13,17 @@ Name:       fi.iki.z7.tolppaapuri
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    Electric outlet timer utility
-Version:    1.0
+Version:    1.0.0
 Release:    1
 Group:      Qt/Qt
 License:    LICENSE
 Source0:    %{name}-%{version}.tar.bz2
 Source100:  fi.iki.z7.tolppaapuri.yaml
 Requires:   sailfishsilica-qt5
-BuildRequires:  pkgconfig(Qt5Core)
-BuildRequires:  pkgconfig(Qt5Qml)
-BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  pkgconfig(sailfishapp)
+BuildRequires:  pkgconfig(Qt5Quick)
+BuildRequires:  pkgconfig(Qt5Qml)
+BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  desktop-file-utils
 
 %description
@@ -61,13 +61,13 @@ desktop-file-install --delete-original       \
 
 %files
 %defattr(-,root,root,-)
-/usr/share/icons/hicolor/86x86/apps/
-%{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/hicolor/90x90/apps/%{name}.png
-%{_datadir}/icons/hicolor/86x86/apps/%{name}.png
-/usr/bin
-/usr/share/applications
-/usr/share/icons/hicolor/90x90/apps
 /usr/share/icons/hicolor/86x86/apps
+/usr/share/icons/hicolor/90x90/apps
+/usr/share/applications
+/usr/bin
+%{_datadir}/icons/hicolor/86x86/apps/%{name}.png
+%{_datadir}/icons/hicolor/90x90/apps/%{name}.png
+%{_datadir}/applications/%{name}.desktop
+/usr/share/icons/hicolor/86x86/apps/
 # >> files
 # << files
