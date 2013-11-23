@@ -1,4 +1,4 @@
-TARGET = fi.iki.z7.tolppaapuri
+TARGET = harbour-tolppaapuri
 
 CONFIG += sailfishapp
 
@@ -14,9 +14,9 @@ APPNAMESTR = '\\"$${DEPLOYMENT.display_name}\\"'
 DEFINES += APPNAME=\"$${APPNAMESTR}\"
 
 OTHER_FILES += qml/*.qml \
-    rpm/fi.iki.z7.tolppaapuri.yaml \
-    rpm/fi.iki.z7.tolppaapuri.spec \
-    fi.iki.z7.tolppaapuri.desktop
+    rpm/harbour-tolppaapuri.yaml \
+    rpm/harbour-tolppaapuri.spec \
+    harbour-tolppaapuri.desktop
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += tolppaapuri.cpp \
@@ -26,7 +26,7 @@ SOURCES += tolppaapuri.cpp \
 HEADERS += applicationcontroller.h \
     settings.h
 
-    86icon.files = fi.iki.z7.tolppaapuri.png
+    86icon.files = harbour-tolppaapuri.png
     86icon.path = /usr/share/icons/hicolor/86x86/apps/
 INSTALLS += 86icon
 

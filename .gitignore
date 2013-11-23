@@ -4,7 +4,7 @@
 *.deb
 *.sis
 Makefile
-fi.iki.z7.tolppaapuri
+harbour-tolppaapuri
 debian/.qtcreator
 moc/
 obj/
