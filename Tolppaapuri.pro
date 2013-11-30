@@ -13,7 +13,7 @@ DEPLOYMENT.display_name = "Tolppa-apuri"
 APPNAMESTR = '\\"$${DEPLOYMENT.display_name}\\"'
 DEFINES += APPNAME=\"$${APPNAMESTR}\"
 
-OTHER_FILES += qml/*.qml \
+OTHER_FILES += aqml/*.qml \
     rpm/harbour-tolppaapuri.yaml \
     rpm/harbour-tolppaapuri.spec \
     harbour-tolppaapuri.desktop

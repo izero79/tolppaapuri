@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>aqml/AboutDialog.qml</file>
-        <file>aqml/main.qml</file>
         <file>aqml/MainPage.qml</file>
         <file>aqml/SimpleCover.qml</file>
         <file>aqml/graphics/clock1_frame_white.png</file>
@@ -10,5 +9,6 @@
         <file>aqml/graphics/clock2_knob_white.png</file>
         <file>aqml/graphics/clock2_mark_white.png</file>
         <file>aqml/graphics/tolppaapuri.png</file>
+        <file>aqml/harbour-tolppaapuri.qml</file>
     </qresource>
 </RCC>

@@ -23,9 +23,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     ok = app->installTranslator(&translator);
     qDebug() << "Translator installed ok" << ok;
 
-    QQuickView view(SailfishApp::createView());
+    QScopedPointer<QQuickView> view(SailfishApp::createView());
 
-    ApplicationController cont(&view);
+    ApplicationController cont(view.data());
 
-    return app->exec();
+    return app.data()->exec();
 }

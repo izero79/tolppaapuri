@@ -11,7 +11,7 @@ ApplicationController::ApplicationController(QQuickView *view) :
     mSettings(new Settings(this))
 {
     mView->rootContext()->setContextProperty( "settings", mSettings );
-    mView->setSource(QUrl("qrc:/aqml/main.qml"));
+    mView->setSource(QUrl("qrc:/aqml/harbour-tolppaapuri.qml"));
     mView->show();
 
     QQuickItem *rootObj = mView->rootObject();
