@@ -13,7 +13,7 @@ Name:       harbour-tolppaapuri
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    Electric outlet timer utility
-Version:    1.0.0
+Version:    1.1.0
 Release:    1
 Group:      Qt/Qt
 License:    LICENSE
@@ -62,12 +62,9 @@ desktop-file-install --delete-original       \
 %files
 %defattr(-,root,root,-)
 /usr/share/icons/hicolor/86x86/apps
-/usr/share/icons/hicolor/90x90/apps
 /usr/share/applications
 /usr/bin
 %{_datadir}/icons/hicolor/86x86/apps/%{name}.png
-%{_datadir}/icons/hicolor/90x90/apps/%{name}.png
 %{_datadir}/applications/%{name}.desktop
-/usr/share/icons/hicolor/86x86/apps/
 # >> files
 # << files

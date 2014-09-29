@@ -10,5 +10,6 @@
         <file>aqml/graphics/clock2_mark_white.png</file>
         <file>aqml/graphics/tolppaapuri.png</file>
         <file>aqml/harbour-tolppaapuri.qml</file>
+        <file>aqml/TimerElement.qml</file>
     </qresource>
 </RCC>

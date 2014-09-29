@@ -4,7 +4,7 @@ CONFIG += sailfishapp
 
 DEFINES +=DEBUGONLYTOFILE
 
-VERSION = 1.0.0
+VERSION = 1.1.0
 
 VERSTR = '\\"$${VERSION}\\"'
 DEFINES += VER=\"$${VERSTR}\"
@@ -16,7 +16,8 @@ DEFINES += APPNAME=\"$${APPNAMESTR}\"
 OTHER_FILES += aqml/*.qml \
     rpm/harbour-tolppaapuri.yaml \
     rpm/harbour-tolppaapuri.spec \
-    harbour-tolppaapuri.desktop
+    harbour-tolppaapuri.desktop \
+    aqml/TimerElement.qml
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += tolppaapuri.cpp \

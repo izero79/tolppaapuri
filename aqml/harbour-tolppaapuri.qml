@@ -9,13 +9,36 @@ ApplicationWindow {
 
     property string versionString: ""
     property string appName: ""
+    property alias startTime: mainPage.startTime
+    property alias timeToStart: mainPage.timeToStart
+    property alias currentTimeInMinutes: mainPage.currentTimeInMinutes
+    property alias minutesToStartTime: mainPage.minutesToStartTime
+    property alias degrees: mainPage.degrees
+    property alias degreesWithOffset: mainPage.degreesWithOffset
+    property alias currentTimeDegrees: mainPage.currentTimeDegrees
+    property alias clockType: mainPage.clockType
+    property alias offsetDiff: mainPage.offsetDiff
+
+    property bool coverVisible: false
+    property bool applicationActive: Qt.application.active
 
     signal openUrl(string url)
 
     function aboutToQuit() {
-        console.log("about to quit")
+        //console.log("about to quit")
         settings.savedHour = mainPage.setHour
         settings.savedMinute = mainPage.setMinute
+    }
+
+    onCoverVisibleChanged: {
+        //console.log('onCoverVisibleChanged: ' + coverVisible)
+        if (coverVisible) {
+            mainPage.currentTime = Qt.formatDateTime(new Date(), "h:mm")
+        }
+    }
+
+    onApplicationActiveChanged: {
+        //console.log('onApplicationActiveChanged: ' + applicationActive)
     }
 
     MainPage {
@@ -40,7 +63,6 @@ ApplicationWindow {
             {
                 item.close()
             }
-            //source = ""
         }
 
         function isVisible()

@@ -4,7 +4,7 @@
 <context>
     <name>AboutDialog</name>
     <message>
-        <location filename="qml/AboutDialog.qml" line="7"/>
+        <location filename="aqml/AboutDialog.qml" line="7"/>
         <source>version </source>
         <translation>version </translation>
     </message>
@@ -12,34 +12,47 @@
 <context>
     <name>MainPage</name>
     <message>
-        <location filename="qml/MainPage.qml" line="115"/>
+        <location filename="aqml/MainPage.qml" line="115"/>
         <source>About</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
     <message>
-        <location filename="qml/MainPage.qml" line="121"/>
+        <location filename="aqml/MainPage.qml" line="121"/>
         <source>Toggle clock type</source>
-        <translation type="unfinished">Byta typ av klocka</translation>
+        <translation>Byta typ av klocka</translation>
     </message>
     <message>
-        <location filename="qml/MainPage.qml" line="166"/>
+        <location filename="aqml/MainPage.qml" line="166"/>
         <source>Current time:</source>
-        <translation type="unfinished">Aktuell tid:</translation>
+        <translation>Aktuell tid:</translation>
     </message>
     <message>
-        <location filename="qml/MainPage.qml" line="212"/>
+        <location filename="aqml/MainPage.qml" line="212"/>
         <source>DST change taken into account</source>
-        <translation type="unfinished">Sommartid har beaktats</translation>
+        <translation>Sommartid har beaktats</translation>
     </message>
     <message>
-        <location filename="qml/MainPage.qml" line="229"/>
+        <location filename="aqml/MainPage.qml" line="229"/>
         <source>Start time:</source>
-        <translation type="unfinished">Avgångstid:</translation>
+        <translation>Avgångstid:</translation>
     </message>
     <message>
-        <location filename="qml/MainPage.qml" line="189"/>
+        <location filename="aqml/MainPage.qml" line="189"/>
         <source>Time to start:</source>
-        <translation type="unfinished">Tid till starten:</translation>
+        <translation>Tid till starten:</translation>
+    </message>
+</context>
+<context>
+    <name>SimpleCover</name>
+    <message>
+        <location filename="aqml/SimpleCover.qml" line="32"/>
+        <source>Time to start:</source>
+        <translation>Tid till starten:</translation>
+    </message>
+    <message>
+        <location filename="aqml/SimpleCover.qml" line="32"/>
+        <source>Start time:</source>
+        <translation>Avgångstid:</translation>
     </message>
 </context>
 </TS>
