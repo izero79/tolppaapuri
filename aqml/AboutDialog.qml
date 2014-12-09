@@ -9,6 +9,7 @@ Dialog{
 
     signal openHomepage()
 
+    allowedOrientations: Orientation.Portrait|Orientation.Landscape|Orientation.LandscapeInverted
     Label {
         id: dialogHeader
         anchors.horizontalCenter: parent.horizontalCenter

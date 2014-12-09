@@ -17,6 +17,8 @@ Page {
     property bool dstChange: false
     property int offsetDiff: 0
 
+    allowedOrientations: Orientation.Portrait|Orientation.Landscape|Orientation.LandscapeInverted
+
     Component.onCompleted: {
         setInitHour(settings.savedHour);
         setInitMinute(settings.savedMinute);
@@ -138,8 +140,8 @@ Page {
         Item {
             y: 0
             x: 0
-            height: appWindow.height
-            width: appWindow.width
+            height: page.height
+            width: page.width
 
             Timer {
                 id: timeTimer
@@ -268,11 +270,10 @@ Page {
 
             TimerElement {
                 id: timerElement
-                anchors.top: parent.top
-                x: page.isLandscape ? 0 : (parent.width - width) / 2
+                x: page.isLandscape ? Theme.paddingMedium : (parent.width - width) / 2
                 width: 388
                 height: width
-                y: 50
+                y: page.isLandscape ? (page.height - height) / 2 : (page.height/2 - height) / 2
             }
         }
     }

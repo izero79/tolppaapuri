@@ -5,7 +5,7 @@ ApplicationWindow {
     id: appWindow
 
     initialPage: mainPage
-
+    allowedOrientations: Orientation.Portrait|Orientation.Landscape|Orientation.LandscapeInverted
 
     property string versionString: ""
     property string appName: ""
