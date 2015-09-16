@@ -17,7 +17,7 @@ Page {
     property bool dstChange: false
     property int offsetDiff: 0
 
-    allowedOrientations: Orientation.Portrait|Orientation.Landscape|Orientation.LandscapeInverted|Orientation.PortraitInverted
+    allowedOrientations: Orientation.Portrait|Orientation.Landscape|Orientation.LandscapeInverted
 
     Component.onCompleted: {
         setInitHour(settings.savedHour);
