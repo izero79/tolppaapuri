@@ -75,8 +75,8 @@ ApplicationWindow {
         }
 
         anchors.centerIn: parent
-        width: appWindow.inPortrait ? parent.width / 3 * 2: parent.width / 5 * 2
-        height: appWindow.inPortrait ? parent.height / 6 * 2 : parent.height / 5 * 3
+        width: parent.width
+        height: parent.height
         source: ""
     }
 
